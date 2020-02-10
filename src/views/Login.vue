@@ -12,14 +12,14 @@
                 </v-card-title>
               <v-card-text>
                   <v-form>
-                      <v-text-field :prepend-inner-icon="icons.mdiKey" solo rounded filled placeholder="TEST ID"></v-text-field>
-                      <v-text-field :prepend-inner-icon="icons.mdiAccount" solo rounded filled placeholder="REGISTRATION NO."></v-text-field>
+                      <v-text-field :prepend-inner-icon="icons.mdiKey" solo rounded filled placeholder="Test ID"></v-text-field>
+                      <v-text-field :prepend-inner-icon="icons.mdiAccount" solo rounded filled placeholder="User ID"></v-text-field>
                       <v-text-field
                        :prepend-inner-icon="icons.mdiLock" 
                        solo 
                        rounded 
                        filled 
-                       placeholder="PASSWORD"
+                       placeholder="Password"
                        :append-icon="show ? icons.mdiEye : icons.mdiEyeOff"
                        @click:append="show = !show"
                        :type="show ? 'text': 'password'"

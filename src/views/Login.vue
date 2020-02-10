@@ -1,32 +1,74 @@
 <template>
-    <div class='bgMain'>
+  <v-container fluid class='d-flex fill-height pa-0 ma-0'>
+      <div class="fill-height setup">
+          <v-card tile class="fill-height blue lighten-3" elevation="24">
+          </v-card>
+      </div>
 
-        <v-container class="d-flex flex-justify-center">
-
-            <v-card>
-
-                <v-card-title> Image </v-card-title>
-
-            </v-card>
-
-            <v-card>
-
-                <v-card-title> Login </v-card-title>
-
-            </v-card>
-
-        </v-container>
-
-    </div>
+      <div class="setup d-flex justify-center align-center fill-height flex-grow-1">
+          <v-card width="30vw" class="blue lighten-3 pa-10" rounded elevation="20">
+              <v-card-title class="pt-0 pb-10"> 
+                  <div class="display-1 text-center font-weight-bold flex-grow-1"> Login </div>
+                </v-card-title>
+              <v-card-text>
+                  <v-form>
+                      <v-text-field :prepend-inner-icon="icons.mdiKey" solo rounded filled placeholder="TEST ID"></v-text-field>
+                      <v-text-field :prepend-inner-icon="icons.mdiAccount" solo rounded filled placeholder="REGISTRATION NO."></v-text-field>
+                      <v-text-field
+                       :prepend-inner-icon="icons.mdiLock" 
+                       solo 
+                       rounded 
+                       filled 
+                       placeholder="PASSWORD"
+                       :append-icon="show ? icons.mdiEye : icons.mdiEyeOff"
+                       @click:append="show = !show"
+                       :type="show ? 'text': 'password'"
+                    ></v-text-field>
+                  </v-form>
+              </v-card-text>
+              <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn rounded width="150px" large router to="/session"> start test </v-btn>
+              </v-card-actions>
+          </v-card>
+      </div>
+  </v-container>
 </template>
 
-<style>
+<script>
 
-    .bgMain {
-        background-color: yellowgreen;
-        height: 100vh;
-        width: 100vw;
+import {
+
+    mdiAccount,
+    mdiKey,
+    mdiLock,
+    mdiEye,
+    mdiEyeOff
+
+
+} from '@mdi/js';
+
+export default {
+
+    data(){
+        return {
+            icons: {
+                mdiAccount,
+                mdiKey,
+                mdiLock,
+                mdiEye,
+                mdiEyeOff
+            },
+            show: false,
+
+        }
     }
     
+}
+</script>
 
+<style>
+    .setup{
+        width: 50vw;
+    }
 </style>

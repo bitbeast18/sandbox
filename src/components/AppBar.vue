@@ -14,17 +14,21 @@
         </v-col>
         
         <v-spacer></v-spacer>
-        <v-btn large rounded class="error" width="180px" @click="func"> end test </v-btn>
+        <v-btn large rounded class="error" width="180px" @click="endTest"> end test </v-btn>
 
     </v-app-bar>
 </template>
 
 <script>
+import { ipcRenderer } from 'electron';
 export default {
     methods:{
-        func: function(){
-            console.log("hello");
-        }
+        endTest: function(){
+            ipcRenderer.send('session-ended');
+            this.$store.commit('setSession', false);
+            this.$router.push('/landing');
+        },
+
     },
     computed: {
         session: function(){

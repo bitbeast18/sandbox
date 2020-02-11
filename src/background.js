@@ -1,6 +1,6 @@
 "use strict";
 
-import { app, protocol, BrowserWindow } from "electron";
+import { app, protocol, BrowserWindow, ipcMain } from "electron";
 import {
   createProtocol
   /* installVueDevtools */
@@ -36,6 +36,19 @@ function createWindow() {
     // Load the index.html when not in development
     win.loadURL("app://./index.html");
   }
+
+
+  ipcMain.on('session-started', () => {
+    win.setKiosk(true);
+    win.setAlwaysOnTop(true);
+    win.setMenuBarVisibility(false);
+  })
+
+  ipcMain.on('session-ended', () => {
+    win.setKiosk(false);
+    win.setAlwaysOnTop(false);
+    win.setMenuBarVisibility(false);
+  })
 
   win.on("closed", () => {
     win = null;

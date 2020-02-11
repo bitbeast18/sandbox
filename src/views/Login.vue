@@ -48,6 +48,7 @@
 
 <script>
 import { mdiAccount, mdiKey, mdiLock, mdiEye, mdiEyeOff } from "@mdi/js";
+import {ipcRenderer} from 'electron'
 
 export default {
   data() {
@@ -65,6 +66,7 @@ export default {
 
   methods: {
     setSession: function() {
+      ipcRenderer.send('session-started');
       this.$store.commit("setSession", true);
       setTimeout(()=>{
         this.$router.push('/session');

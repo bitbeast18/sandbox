@@ -1,4 +1,4 @@
-<img width="80px" height="80px" src="img/icon.png">
+<img align='center' width="80px" height="80px" src="img/icon.png">
 
 <h3 align='center'> Sandbox </h3>
 

@@ -1,17 +1,6 @@
 <template>
   <v-app-bar flat elevation="1" class="grey lighten-2" :value="session" app>
-    <v-col class="ma-0 pa-0" cols="3">
-      <v-select
-        dense
-        rounded
-        hide-details
-        filled
-        placeholder="Language"
-        :items="items"
-      >
-      </v-select>
-    </v-col>
-
+    <router-view name="appbar"></router-view>
     <v-spacer></v-spacer>
     <v-btn large rounded class="error" width="180px" @click="endTest">
       end test
@@ -33,10 +22,5 @@ export default {
       return this.$store.state.session;
     }
   },
-  data() {
-    return {
-      items: ["PYTHON", "JAVA", "C", "C++"]
-    };
-  }
 };
 </script>

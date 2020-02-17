@@ -8,6 +8,20 @@ export default {
     runner: null,
     notifier: null,
 
-    session: false,
+    // creds
+    testId: null,
+    userId: null,
+
+
+    // Questions related details.
+    allQuestions: [],
+    curQuestion: null,
+
+    // Loaders
+    loginLoader: false,
+    nextLoader: false,
+    prevLoader: false,
+    
+
 
 }

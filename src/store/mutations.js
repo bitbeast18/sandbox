@@ -5,16 +5,16 @@ export default {
 
     // Initialisations.
 
-    initStore(state){
+    initStore(state) {
         state.editor = new Editor();
     },
 
-    initCodeEditor(state){
+    initCodeEditor(state) {
         state.editor.initCodeEditor();
     },
 
-    setSession(state, newValue){
-        state.session = newValue;
+    setCurQuestion(state, idx) {
+        state.curQuestion = state.allQuestions[idx];
     }
 
 }

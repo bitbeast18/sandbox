@@ -1,6 +1,5 @@
 
 import * as monaco from 'monaco-editor';
-import fs from 'fs';
 
 export default class Editor {
 
@@ -19,49 +18,17 @@ export default class Editor {
                 minimap: {
                     enabled: false,
                 },
-                language: 'python',
-                value: 'def starter():\n\tprint("Hello, world!")\n'
-
+                model: null
             });
 
     }
 
-    newDiff(actual, expected) {
+    newModel() {
 
-        const actualModel = monaco.editor.createModel(actual);
-        const expectedModel = monaco.editor.createModel(expected);
-
-        this._diff.setModel({
-            original: actualModel,
-            modified: expectedModel
-        })
-    }
-
-
-    newModel(path) {
-
-        if (!fs.existsSync(path)) {
-            const content = `/*\n* Author: bitbeast18\n* Created On: ${new Date().toLocaleString()}\n*/`
-            fs.writeFileSync(path, content);
-        }
-
-        const data = fs.readFileSync(path, 'utf-8');
-
-        let lang = null;
-
-        if (path.endsWith('cpp')) {
-            lang = 'cpp';
-        } else if (path.endsWith('py')) {
-            lang = 'python';
-        } else if (path.endsWith('java')) {
-            lang = 'java';
-        } else {
-            lang = 'c';
-        }
+        let lang = 'python';
+        let data = '// sandbox';
 
         const model = monaco.editor.createModel(data, lang);
-
-        this._editor.setModel(model);
 
         return { model, lang };
     }
@@ -70,7 +37,7 @@ export default class Editor {
         this._editor.setModel(model);
     }
 
-    getValue(){
+    getValue() {
         return this._editor.getValue();
     }
 }

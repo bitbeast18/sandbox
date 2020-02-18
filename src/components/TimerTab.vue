@@ -1,5 +1,10 @@
 <template>
-    <v-container class="timer elevation-2 grey lighten-2 d-flex justify-space-around">
+    <v-container :class="{'timer': true,
+    'elevation-2': true,
+    'grey':!darkmode,
+    'lighten-2':!darkmode,
+    'd-flex':true,
+    'justify-space-around':true}">
         <v-btn @click="prev" rounded>prev</v-btn>
         <div>
             <p class="display-1 font-weight-bold"> 01:45:39 </p>
@@ -10,6 +15,12 @@
 
 <script>
 export default {
+
+    computed: {
+        darkmode(){
+            return this.$store.state.isDarkTheme;
+        }
+    },
 
     methods: {
         prev: function(){

@@ -1,5 +1,5 @@
 <template>
-    <v-container class="list grey lighten-2">
+    <v-container :class="{'grey': !darkmode, 'lighten-2': !darkmode, 'list':true}">
         <v-row align="center" justify="start">
             <v-col class="shrink" v-for="item in items" :key="item">
                 <v-chip @click="setQuestion(item)" color="default">Problem {{item}}</v-chip>
@@ -14,6 +14,9 @@ export default {
     computed: {
         items(){
             return this.$store.state.allQuestions.length
+        },
+        darkmode(){
+            return this.$store.state.isDarkTheme;
         }
     },
 

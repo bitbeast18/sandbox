@@ -1,5 +1,5 @@
 <template>
-    <v-card flat class="centerElem">
+    <v-card flat class="centerElem fill-height">
         <v-card-title> Question </v-card-title>
         <v-card-text>
 

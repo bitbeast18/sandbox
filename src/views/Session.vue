@@ -1,7 +1,7 @@
 <template>
   <v-app app>
     <v-navigation-drawer
-      right
+      :right="!isDockLeft"
       style="max-height:100vh !important"
       width="40%"
       app
@@ -32,6 +32,12 @@ export default {
     AppBar,
     BottomBar
   },
+
+  computed: {
+    isDockLeft(){
+      return this.$store.state.isDockLeft;
+    }
+  }
 
 };
 </script>

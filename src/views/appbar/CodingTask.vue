@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-col class="ma-0 pa-0" cols="3">
+    <v-col class="ma-0 pa-0" cols="8">
       <v-select
         dense
         rounded

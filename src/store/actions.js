@@ -62,7 +62,7 @@ export default {
                 break;
         }
 
-        router.push('/session' + nextRoute).catch((err) => {console.log("ignore: \n" + err)});
+        router.push('/session' + nextRoute + "/" + state.curQuestionIdx).catch((err) => {console.log("ignore: \n" + err)});
     },
 
 

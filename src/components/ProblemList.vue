@@ -10,6 +10,8 @@
 
 <script>
 export default {
+
+    
     
     computed: {
         items(){
@@ -22,7 +24,7 @@ export default {
 
     methods: {
         setQuestion: function(idx){
-            this.$store.commit('setCurQuestion', idx-1);
+            this.$store.commit('setCurQuestion', idx);
             this.$store.dispatch('changeRoute');
         },
     }

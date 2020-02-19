@@ -5,7 +5,7 @@
     :class="{'grey': !darkmode, 'lighten-1': !darkmode}"
     app
   >
-    <router-view name="appbar"></router-view>
+    <router-view name="appbar" :key="getKey"></router-view>
     <v-spacer></v-spacer>
     <v-btn large rounded class="error" width="180px" @click="endTest">end test</v-btn>
   </v-app-bar>
@@ -23,6 +23,9 @@ export default {
   computed: {
     darkmode() {
       return this.$store.state.isDarkTheme;
+    },
+    getKey(){
+      return this.$store.state.curQuestionIdx;
     }
   }
 };

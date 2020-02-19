@@ -16,6 +16,7 @@ export default {
     // Questions related details.
     allQuestions: [],
     curQuestion: null,
+    curQuestionIdx: null,
 
     // Loaders
     loginLoader: false,

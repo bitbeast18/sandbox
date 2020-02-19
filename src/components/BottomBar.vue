@@ -22,7 +22,7 @@
       <v-icon>{{icons.mdiBookmark}}</v-icon>
     </v-btn>
     <v-spacer></v-spacer>
-    <router-view name="bottombar"></router-view>
+    <router-view name="bottombar" :key="getKey"></router-view>
   </v-app-bar>
 </template>
 
@@ -40,6 +40,10 @@ export default {
   },
 
   computed: {
+
+    getKey(){
+      return this.$store.state.curQuestionIdx;
+    },
 
     darkmode: {
       get(){

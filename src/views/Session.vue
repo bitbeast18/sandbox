@@ -12,7 +12,7 @@
     <AppBar></AppBar>
 
     <v-content app>
-      <router-view name="answer"></router-view>
+      <router-view name="answer" :key="getKey"></router-view>
     </v-content>
 
     <BottomBar></BottomBar>
@@ -36,6 +36,9 @@ export default {
   computed: {
     isDockLeft(){
       return this.$store.state.isDockLeft;
+    },
+    getKey(){
+      return this.$store.state.curQuestionIdx;
     }
   }
 

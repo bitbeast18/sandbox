@@ -39,7 +39,7 @@ const routes = [
     component: Session,
     children: [
       {
-        path: "coding",
+        path: "coding/:id",
         name: "Coding Task",
         components: {
           question: CodingQue,
@@ -49,7 +49,7 @@ const routes = [
         }
       },
       {
-        path: "ml",
+        path: "ml/:id",
         name: "Machine Learning",
         components: {
           question: MLQue,
@@ -60,7 +60,7 @@ const routes = [
       },
 
       {
-        path: "mcq",
+        path: "mcq/:id",
         name: "MCQ",
         components: {
           question: MCQQue,
@@ -71,7 +71,7 @@ const routes = [
       },
 
       {
-        path: "writing",
+        path: "writing/:id",
         name: "Writing Task",
         components: {
           question: WriteQue,

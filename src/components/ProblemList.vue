@@ -1,8 +1,8 @@
 <template>
     <v-container :class="{'grey': !darkmode, 'lighten-1': !darkmode, 'list':true}">
         <v-row align="center" justify="start">
-            <v-col class="shrink" v-for="item in items" :key="item">
-                <v-chip @click="setQuestion(item)" :color="getColor(item)">Q{{item}}</v-chip>
+            <v-col class="shrink" v-for="(item, idx) in items" :key="idx">
+                <v-chip @click="setQuestion(idx)" :color="item.color">Q{{idx+1}}</v-chip>
             </v-col>
         </v-row>
     </v-container>
@@ -13,7 +13,7 @@ export default {
     
     computed: {
         items(){
-            return this.$store.state.allQuestions.length
+            return this.$store.state.allQuestions;
         },
         darkmode(){
             return this.$store.state.isDarkTheme;
@@ -25,9 +25,6 @@ export default {
             this.$store.commit('setCurQuestion', idx-1);
             this.$store.dispatch('changeRoute');
         },
-        getColor(idx){
-            return this.$store.state.allQuestions[idx-1].color;
-        }
     }
 }
 </script>

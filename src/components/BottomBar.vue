@@ -1,9 +1,9 @@
 <template>
-  <v-app-bar flat elevation="1" :class="{'grey': !darkmode, 'lighten-2': !darkmode}" bottom width="60%" app>
-    <v-menu v-model="menutarget">
+  <v-app-bar flat elevation="1" :class="{'grey': !darkmode, 'lighten-1': !darkmode}" bottom width="60%" app>
+    <v-menu>
       <template v-slot:activator="{on}">
         <v-btn v-on="on" rounded large outlined>
-          <v-icon>{{icons.mdiArrowUp}}</v-icon>
+          <v-icon>{{icons.mdiSettings}}</v-icon>
           <span class="ml-2">settings</span>
         </v-btn>
       </template>
@@ -27,14 +27,14 @@
 </template>
 
 <script>
-import { mdiArrowUp, mdiBookmark } from "@mdi/js";
+import { mdiBookmark, mdiSettings } from "@mdi/js";
 
 export default {
   data() {
     return {
       icons: {
-        mdiArrowUp,
-        mdiBookmark
+        mdiBookmark,
+        mdiSettings
       }
     };
   },

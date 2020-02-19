@@ -15,6 +15,9 @@ export default {
 
     setCurQuestion(state, idx) {
         state.curQuestion = state.allQuestions[idx];
+        if(state.curQuestion.color === 'default'){
+            state.curQuestion.color = 'error';
+        }
     }
 
 }

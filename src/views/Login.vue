@@ -3,18 +3,22 @@
     <v-content app>
       <v-container fluid class="d-flex fill-height pa-0 ma-0">
         <div class="fill-height setup">
-          <v-card tile :loading="loader" class="fill-height blue lighten-3" elevation="24"></v-card>
+          <v-card tile :loading="loader" class="fill-height grey darken-4" elevation="24">
+            <div id="title-name" class="display-4 font-weight-medium grey--text">              
+              Sandbox
+            </div>
+          </v-card>
         </div>
 
         <div class="setup d-flex justify-center align-center fill-height flex-grow-1">
           <v-card
             width="30vw"
-            class="blue lighten-3 pa-10"
+            class="grey white--text darken-4 pa-10"
             rounded
             elevation="20"
           >
             <v-card-title class="pt-0 pb-10">
-              <div class="display-1 text-center font-weight-bold flex-grow-1">Login</div>
+              <div class="display-1 text-center text--white font-weight-bold flex-grow-1">Login</div>
             </v-card-title>
             <v-card-text>
               <v-form>
@@ -97,5 +101,11 @@ export default {
 .setup {
   height: 100vh;
   width: 50vw;
+}
+
+#title-name{
+  position: absolute;
+  top: 65%;
+  left: 22.5%
 }
 </style>

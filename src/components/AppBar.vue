@@ -2,8 +2,7 @@
   <v-app-bar
     flat
     elevation="1"
-    :class="{'grey': !darkmode, 'lighten-2': !darkmode}"
-    :value="session"
+    :class="{'grey': !darkmode, 'lighten-1': !darkmode}"
     app
   >
     <router-view name="appbar"></router-view>
@@ -21,16 +20,6 @@ export default {
       this.$router.push("/landing");
     }
   },
-  computed: {
-    session: function() {
-      return this.$store.state.session;
-    }
-  }
-};
-</script>
-
-<script>
-export default {
   computed: {
     darkmode() {
       return this.$store.state.isDarkTheme;

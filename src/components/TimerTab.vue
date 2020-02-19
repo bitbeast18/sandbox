@@ -2,7 +2,7 @@
     <v-container :class="{'timer': true,
     'elevation-2': true,
     'grey':!darkmode,
-    'lighten-2':!darkmode,
+    'lighten-1':!darkmode,
     'd-flex':true,
     'justify-space-around':true}">
         <v-btn @click="prev" rounded>prev</v-btn>

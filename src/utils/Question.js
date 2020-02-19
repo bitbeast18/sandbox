@@ -6,6 +6,7 @@ export default class Question {
 
         this.type = traits.type;
         this.statement = traits.questionStatement;
+        this.color = 'default';
 
         const newer = (new Editor()).newModel();
 

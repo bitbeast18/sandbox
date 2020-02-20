@@ -1,0 +1,7 @@
+.container {
+    width: 100%!important;
+}
+
+button[title="open the command palette"] {
+    display: none;
+}

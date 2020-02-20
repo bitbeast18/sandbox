@@ -1,5 +1,11 @@
 <template>
-  <iframe id="notebook" height="100%" width="100%" :src="notebookPath"></iframe>
+  <iframe
+    id="notebook"
+    frameborder="0"
+    height="100%"
+    width="100%"
+    :src="notebookPath"
+  ></iframe>
 </template>
 
 <script>

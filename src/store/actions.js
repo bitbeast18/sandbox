@@ -1,6 +1,7 @@
 import { db } from "@/firebase/init";
 import router from "@/router/index";
 import Question from "@/utils/Question";
+import NotebookServer from "@/utils/NotebookServer";
 
 import { ipcRenderer } from "electron";
 
@@ -27,6 +28,10 @@ export default {
         }
 
         commit("setCurQuestion", 0);
+
+        if (state.hasMl) {
+          NotebookServer.startServer();
+        }
 
         state.loginLoader = false;
         ipcRenderer.send("session-started");

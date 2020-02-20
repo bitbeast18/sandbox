@@ -7,6 +7,8 @@ export default {
   runner: null,
   notifier: null,
 
+  hasMl: true,
+
   // creds
   testId: null,
   userId: null,

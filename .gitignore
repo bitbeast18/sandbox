@@ -19,6 +19,8 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+.ipynb_checkpoints/
+test.ipynb
 
 #Electron-builder output
 /dist_electron

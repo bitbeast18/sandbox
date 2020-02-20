@@ -1,5 +1,12 @@
 <template>
-  <v-app-bar flat elevation="1" :class="{'grey': !darkmode, 'lighten-1': !darkmode}" bottom width="60%" app>
+  <v-app-bar
+    flat
+    elevation="1"
+    :class="{'grey': !darkmode, 'lighten-1': !darkmode}"
+    bottom
+    width="60%"
+    app
+  >
     <v-menu>
       <template v-slot:activator="{on}">
         <v-btn v-on="on" rounded large outlined>
@@ -40,19 +47,18 @@ export default {
   },
 
   computed: {
-
-    getKey(){
+    getKey() {
       return this.$store.state.curQuestionIdx;
     },
 
     darkmode: {
-      get(){
+      get() {
         return this.$store.state.isDarkTheme;
       },
-      set(newValue){
-        let mode = 'vs';
-        if(newValue === true){
-          mode = 'vs-dark'
+      set(newValue) {
+        let mode = "vs";
+        if (newValue === true) {
+          mode = "vs-dark";
         }
         this.$store.state.editor.setTheme(mode);
         this.$store.state.isDarkTheme = newValue;
@@ -61,20 +67,23 @@ export default {
     },
 
     dockpos: {
-      get(){
+      get() {
         return this.$store.state.isDockLeft;
       },
-      set(newValue){
+      set(newValue) {
         console.log(newValue);
         this.$store.state.isDockLeft = newValue;
       }
     }
-
   },
 
   methods: {
-    flagQuestion(){
-      this.$store.state.curQuestion.color = 'warning';
+    flagQuestion() {
+      if (this.$store.state.curQuestion.color === "warning") {
+        this.$store.state.curQuestion.color = "error";
+      } else {
+        this.$store.state.curQuestion.color = "warning";
+      }
     }
   }
 };

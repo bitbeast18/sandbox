@@ -1,50 +1,42 @@
-import Editor from '@/utils/Editor';
+import Editor from "@/utils/Editor";
 
 export default class Question {
+  constructor(traits) {
+    this.type = traits.type;
+    this.statement = traits.questionStatement;
+    this.color = "default";
 
-    constructor(traits) {
+    let new_model = null;
 
-        this.type = traits.type;
-        this.statement = traits.questionStatement;
-        this.color = 'default';
-
-        let new_model = null;
-
-        if(traits.type === 'Coding Task'){
-            new_model = (new Editor()).newModel(traits.language);
-        }
-
-        switch (this.type) {
-
-            case 'Machine Learning':
-                this.resources = traits.resources;
-                break;
-
-            case 'Coding Task':
-                this.constraints = traits.constraints;
-                this.sample_in = traits.sample_in;
-                this.sample_out = traits.sample_out;
-                
-                this.lang = traits.language;
-                this.model = new_model;
-                break;
-
-            case 'Writing Task':
-                this.wordLimit = traits.wordLimit;
-                break;
-
-            case 'Multiple Choice Question':
-                this.op = [];
-                if (traits.op1) this.op.push(traits.op1);
-                if (traits.op2) this.op.push(traits.op2);
-                if (traits.op3) this.op.push(traits.op3);
-                if (traits.op4) this.op.push(traits.op4);
-                break;
-
-        }
-
-
+    if (traits.type === "Coding Task") {
+      new_model = new Editor().newModel(traits.language);
     }
 
+    switch (this.type) {
+      case "Machine Learning":
+        this.resources = traits.resources;
+        break;
 
+      case "Coding Task":
+        this.constraints = traits.constraints;
+        this.sample_in = traits.sample_in;
+        this.sample_out = traits.sample_out;
+
+        this.lang = traits.language;
+        this.model = new_model;
+        break;
+
+      case "Writing Task":
+        this.wordLimit = traits.wordLimit;
+        break;
+
+      case "Multiple Choice Question":
+        this.op = [];
+        if (traits.op1) this.op.push(traits.op1);
+        if (traits.op2) this.op.push(traits.op2);
+        if (traits.op3) this.op.push(traits.op3);
+        if (traits.op4) this.op.push(traits.op4);
+        break;
+    }
+  }
 }

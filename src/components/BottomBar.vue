@@ -2,15 +2,15 @@
   <v-app-bar
     flat
     elevation="1"
-    :class="{'grey': !darkmode, 'lighten-1': !darkmode}"
+    :class="{ grey: !darkmode, 'lighten-1': !darkmode }"
     bottom
     width="60%"
     app
   >
     <v-menu>
-      <template v-slot:activator="{on}">
+      <template v-slot:activator="{ on }">
         <v-btn v-on="on" rounded large outlined>
-          <v-icon>{{icons.mdiSettings}}</v-icon>
+          <v-icon>{{ icons.mdiSettings }}</v-icon>
           <span class="ml-2">settings</span>
         </v-btn>
       </template>
@@ -26,7 +26,7 @@
     </v-menu>
 
     <v-btn @click="flagQuestion" small class="ml-2" fab outlined>
-      <v-icon>{{icons.mdiBookmark}}</v-icon>
+      <v-icon>{{ icons.mdiBookmark }}</v-icon>
     </v-btn>
     <v-spacer></v-spacer>
     <router-view name="bottombar" :key="getKey"></router-view>

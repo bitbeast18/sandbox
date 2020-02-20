@@ -1,11 +1,5 @@
-
-
 class NotebookServer {
-
-    constructor(){
-        
-    }
-
+  constructor() {}
 }
 
 export default new NotebookServer();

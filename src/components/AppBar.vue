@@ -2,12 +2,14 @@
   <v-app-bar
     flat
     elevation="1"
-    :class="{'grey': !darkmode, 'lighten-1': !darkmode}"
+    :class="{ grey: !darkmode, 'lighten-1': !darkmode }"
     app
   >
     <router-view name="appbar" :key="getKey"></router-view>
     <v-spacer></v-spacer>
-    <v-btn large rounded class="error" width="180px" @click="endTest">end test</v-btn>
+    <v-btn large rounded class="error" width="180px" @click="endTest"
+      >end test</v-btn
+    >
   </v-app-bar>
 </template>
 
@@ -24,7 +26,7 @@ export default {
     darkmode() {
       return this.$store.state.isDarkTheme;
     },
-    getKey(){
+    getKey() {
       return this.$store.state.curQuestionIdx;
     }
   }

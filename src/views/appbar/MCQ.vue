@@ -1,5 +1,5 @@
 <template>
-    <div>
-        MCQ
-    </div>
+  <div>
+    MCQ
+  </div>
 </template>

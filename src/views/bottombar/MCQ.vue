@@ -7,10 +7,9 @@
 <script>
 export default {
   methods: {
-    save: function(){
+    save: function() {
       console.log("Saving...");
     }
-
   }
-}
+};
 </script>

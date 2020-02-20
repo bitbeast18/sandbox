@@ -4,13 +4,11 @@
 
 <script>
 export default {
-  
   computed: {
-    notebookPath(){
-      return 'http://localhost:10301/tree/test.ipynb';
+    notebookPath() {
+      return "http://localhost:10301/tree/test.ipynb";
       // return this.$store.state.curQuestion.addr;
     }
   }
-
 };
 </script>

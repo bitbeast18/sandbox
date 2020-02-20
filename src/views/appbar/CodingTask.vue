@@ -15,16 +15,14 @@
 </template>
 
 <script>
-
 export default {
-
-  mounted(){
+  mounted() {
     this.lang = this.items[0];
   },
-  
+
   data() {
     return {
-      lang: null,
+      lang: null
     };
   },
 
@@ -32,12 +30,11 @@ export default {
     items() {
       const lang = this.$store.state.curQuestion.lang;
 
-      if(lang === 'any'){
+      if (lang === "any") {
         return ["C", "C++", "JAVA", "PYTHON"];
       } else {
         return [lang];
       }
-
     }
   }
 };

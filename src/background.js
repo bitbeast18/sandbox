@@ -37,18 +37,17 @@ function createWindow() {
     win.loadURL("app://./index.html");
   }
 
-
-  ipcMain.on('session-started', () => {
+  ipcMain.on("session-started", () => {
     win.setKiosk(true);
     win.setAlwaysOnTop(true);
     win.setMenuBarVisibility(false);
-  })
+  });
 
-  ipcMain.on('session-ended', () => {
+  ipcMain.on("session-ended", () => {
     win.setKiosk(false);
     win.setAlwaysOnTop(false);
     win.setMenuBarVisibility(false);
-  })
+  });
 
   win.on("closed", () => {
     win = null;

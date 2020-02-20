@@ -5,7 +5,15 @@
         <v-card>
           <v-card-subtitle>Write your answer below</v-card-subtitle>
           <v-card-text>
-            <v-textarea outlined no-resize filled counter rows="20" class="tester" v-model="answer"></v-textarea>
+            <v-textarea
+              outlined
+              no-resize
+              filled
+              counter
+              rows="20"
+              class="tester"
+              v-model="answer"
+            ></v-textarea>
           </v-card-text>
         </v-card>
       </v-col>
@@ -23,6 +31,4 @@ export default {
 };
 </script>
 
-<style>
-    
-</style>
+<style></style>

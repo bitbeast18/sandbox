@@ -1,59 +1,50 @@
-
-import * as monaco from 'monaco-editor';
+import * as monaco from "monaco-editor";
 
 export default class Editor {
+  constructor() {
+    this._editor = null;
+  }
 
-    constructor() {
+  initCodeEditor() {
+    this._editor = monaco.editor.create(document.getElementById("editor"), {
+      automaticLayout: true,
+      minimap: {
+        enabled: false
+      },
+      model: null
+    });
+  }
 
-        this._editor = null;
+  newModel(lang) {
+    let data = "// sandbox";
+    if (lang === "any") {
+      lang = "C";
     }
 
-    initCodeEditor() {
-
-        this._editor = monaco.editor.create(
-            document.getElementById("editor"),
-            {
-                automaticLayout: true,
-                minimap: {
-                    enabled: false,
-                },
-                model: null
-            });
-
+    if (lang === "PYTHON") {
+      lang = "python";
+    } else if (lang === "JAVA") {
+      lang = "java";
+    } else if (lang === "C++") {
+      lang = "cpp";
+    } else {
+      lang = "c";
     }
 
-    newModel(lang) {
+    const model = monaco.editor.createModel(data, lang);
 
-        let data = '// sandbox';
-        if (lang === 'any'){
-            lang = 'C';
-        }
+    return model;
+  }
 
-        if(lang === 'PYTHON'){
-            lang = 'python'
-        } else if(lang === 'JAVA'){
-            lang = 'java'
-        } else if(lang === 'C++'){
-            lang = 'cpp'
-        } else {
-            lang = 'c'
-        }
+  setModel(model) {
+    this._editor.setModel(model);
+  }
 
-        const model = monaco.editor.createModel(data, lang);
+  getValue() {
+    return this._editor.getValue();
+  }
 
-        return model;
-    }
-
-    setModel(model) {
-        this._editor.setModel(model);
-    }
-
-    getValue() {
-        return this._editor.getValue();
-    }
-
-    setTheme(mode){
-        monaco.editor.setTheme(mode);
-    }
+  setTheme(mode) {
+    monaco.editor.setTheme(mode);
+  }
 }
-

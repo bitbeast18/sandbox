@@ -1,23 +1,18 @@
 <template>
-    <div id="editor"></div>
+  <div id="editor"></div>
 </template>
 
 <script>
-
 export default {
-
-  mounted: function(){
-    this.$store.commit('initCodeEditor');
+  mounted: function() {
+    this.$store.commit("initCodeEditor");
     this.$store.state.editor.setModel(this.$store.state.curQuestion.model);
   }
-  
-}
+};
 </script>
 
 <style>
-
-  #editor {
-    height: 100%;
-  }
-
+#editor {
+  height: 100%;
+}
 </style>

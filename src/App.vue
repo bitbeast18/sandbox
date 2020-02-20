@@ -4,11 +4,8 @@
 
 <script>
 export default {
-  
-  created(){
-    this.$store.commit('initStore');
+  created() {
+    this.$store.commit("initStore");
   }
-
-}
+};
 </script>
-

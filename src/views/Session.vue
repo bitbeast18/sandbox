@@ -24,9 +24,7 @@ import NavContent from "@/components/NavContent.vue";
 import AppBar from "@/components/AppBar.vue";
 import BottomBar from "@/components/BottomBar.vue";
 
-
 export default {
-
   components: {
     NavContent,
     AppBar,
@@ -34,13 +32,12 @@ export default {
   },
 
   computed: {
-    isDockLeft(){
+    isDockLeft() {
       return this.$store.state.isDockLeft;
     },
-    getKey(){
+    getKey() {
       return this.$store.state.curQuestionIdx;
     }
   }
-
 };
 </script>

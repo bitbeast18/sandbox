@@ -9,19 +9,36 @@
         placeholder="Language"
         :items="items"
         v-model="lang"
-      >
-      </v-select>
+      ></v-select>
     </v-col>
   </div>
 </template>
 
 <script>
+
 export default {
-  data(){
+
+  mounted(){
+    this.lang = this.items[0];
+  },
+  
+  data() {
     return {
-      items: ['C', 'C++', 'JAVA', 'PYTHON'],
       lang: 0
+    };
+  },
+
+  computed: {
+    items() {
+      const lang = this.$store.state.curQuestion.lang;
+
+      if(lang === 'any'){
+        return ["C", "C++", "JAVA", "PYTHON"];
+      } else {
+        return [lang];
+      }
+
     }
   }
-}
+};
 </script>

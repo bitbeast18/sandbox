@@ -8,8 +8,11 @@ export default class Question {
         this.statement = traits.questionStatement;
         this.color = 'default';
 
-        const newer = (new Editor()).newModel();
+        let new_model = null;
 
+        if(traits.type === 'Coding Task'){
+            new_model = (new Editor()).newModel(traits.language);
+        }
 
         switch (this.type) {
 
@@ -22,8 +25,8 @@ export default class Question {
                 this.sample_in = traits.sample_in;
                 this.sample_out = traits.sample_out;
                 
-                this.lang = newer.lang;
-                this.model = newer.model;
+                this.lang = traits.language;
+                this.model = new_model;
                 break;
 
             case 'Writing Task':

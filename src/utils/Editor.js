@@ -23,14 +23,16 @@ export default class Editor {
 
     }
 
-    newModel() {
+    newModel(lang) {
 
-        let lang = 'python';
         let data = '// sandbox';
+        if (lang === 'any'){
+            lang = 'C';
+        }
 
         const model = monaco.editor.createModel(data, lang);
 
-        return { model, lang };
+        return model;
     }
 
     setModel(model) {

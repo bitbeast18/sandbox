@@ -24,7 +24,7 @@ export default {
   
   data() {
     return {
-      lang: 0
+      lang: null,
     };
   },
 

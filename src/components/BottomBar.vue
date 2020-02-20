@@ -18,7 +18,7 @@
       </v-list>
     </v-menu>
 
-    <v-btn small class="ml-2" fab outlined>
+    <v-btn @click="flagQuestion" small class="ml-2" fab outlined>
       <v-icon>{{icons.mdiBookmark}}</v-icon>
     </v-btn>
     <v-spacer></v-spacer>
@@ -50,6 +50,11 @@ export default {
         return this.$store.state.isDarkTheme;
       },
       set(newValue){
+        let mode = 'vs';
+        if(newValue === true){
+          mode = 'vs-dark'
+        }
+        this.$store.state.editor.setTheme(mode);
         this.$store.state.isDarkTheme = newValue;
         this.$vuetify.theme.dark = newValue;
       }
@@ -65,6 +70,12 @@ export default {
       }
     }
 
+  },
+
+  methods: {
+    flagQuestion(){
+      this.$store.state.curQuestion.color = 'warning';
+    }
   }
 };
 </script>

@@ -13,7 +13,6 @@ export default class Editor {
         this._editor = monaco.editor.create(
             document.getElementById("editor"),
             {
-                theme: 'vs',
                 automaticLayout: true,
                 minimap: {
                     enabled: false,
@@ -30,6 +29,16 @@ export default class Editor {
             lang = 'C';
         }
 
+        if(lang === 'PYTHON'){
+            lang = 'python'
+        } else if(lang === 'JAVA'){
+            lang = 'java'
+        } else if(lang === 'C++'){
+            lang = 'cpp'
+        } else {
+            lang = 'c'
+        }
+
         const model = monaco.editor.createModel(data, lang);
 
         return model;
@@ -41,6 +50,10 @@ export default class Editor {
 
     getValue() {
         return this._editor.getValue();
+    }
+
+    setTheme(mode){
+        monaco.editor.setTheme(mode);
     }
 }
 

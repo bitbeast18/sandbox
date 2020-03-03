@@ -17,5 +17,9 @@ export default {
     if (state.curQuestion.color === "default") {
       state.curQuestion.color = "error";
     }
+  },
+
+  toggleRunDialogState(state) {
+    state.runDialogState = !state.runDialogState;
   }
 };

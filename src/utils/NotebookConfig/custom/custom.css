@@ -5,3 +5,13 @@
 button[title="open the command palette"] {
     display: none;
 }
+
+#menubar {
+    visibility: hidden;
+    display: none;
+}
+
+#header-container{
+    visibility: hidden;
+    display: none;
+}

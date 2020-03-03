@@ -21,5 +21,8 @@ export default {
   // Loaders
   loginLoader: false,
   nextLoader: false,
-  prevLoader: false
+  prevLoader: false,
+
+  // Dialog
+  runDialogState: false
 };

@@ -8,7 +8,10 @@
         filled
         placeholder="Select File"
         :items="items"
+        item-text="name"
         v-model="file"
+        return-object
+        single-line
       ></v-select>
     </v-col>
   </div>
@@ -16,19 +19,18 @@
 
 <script>
 export default {
-  mounted() {
-    this.file = this.items[0];
-  },
-
-  data() {
-    return {
-      file: null
-    };
-  },
 
   computed: {
     items() {
-      return ['HTML.html', 'CSS.css', 'JAVASCRIPT.js'];
+      return this.$store.state.curQuestion.files;
+    },
+    file: {
+      get(){
+        return this.$store.state.curQuestion.curFile;
+      },
+      set(obj){
+        this.$store.commit.setWebDevCurFile(obj);
+      }
     }
   }
 };

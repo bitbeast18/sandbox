@@ -25,6 +25,11 @@ export default {
 
   toggleWebDialogState(state){
     state.webDialogState = !state.webDialogState;
+  },
+
+  setWebDevCurFile(state, obj){
+    state.curQuestion.curFile = obj;
+    state.editor.setModel(obj.model);
   }
 
 

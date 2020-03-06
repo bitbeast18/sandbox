@@ -41,10 +41,22 @@ export default class Question {
         break;
 
       case "Web Dev":
-        this.js_model = js_model;
-        this.html_model = html_model;
-        this.css_model = css_model;
-        this.cur_model = html_model;
+        this.files = {
+          js: {
+            name: 'JAVASCRIPT.js',
+            model: js_model
+          },
+          html: {
+            name: 'HTML.html',
+            model: html_model
+          },
+          css: {
+            name: 'CSS.css',
+            model: css_model
+          }
+        }
+
+        this.curFile = this.files.html;
         break;
 
       case "Multiple Choice Question":

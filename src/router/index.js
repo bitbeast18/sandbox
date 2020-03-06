@@ -25,6 +25,11 @@ import WriteAns from "@/views/answer/WritingTask.vue";
 import WriteApp from "@/views/appbar/WritingTask.vue";
 import WriteBottom from "@/views/bottombar/WritingTask.vue";
 
+import WebDevQue from "@/views/question/WebDev.vue";
+import WebDevAns from "@/views/answer/WebDev.vue";
+import WebDevApp from "@/views/appbar/WebDev.vue";
+import WebDevBottom from "@/views/bottombar/WebDev.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -67,6 +72,17 @@ const routes = [
           answer: MCQAns,
           appbar: MCQApp,
           bottombar: MCQBottom
+        }
+      },
+
+      {
+        path: "webdev/:id",
+        name: "WebDev",
+        components: {
+          question: WebDevQue,
+          answer: WebDevAns,
+          appbar: WebDevApp,
+          bottombar: WebDevBottom
         }
       },
 

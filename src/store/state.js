@@ -24,5 +24,6 @@ export default {
   prevLoader: false,
 
   // Dialog
-  runDialogState: false
+  runDialogState: false,
+  webDialogState: false
 };

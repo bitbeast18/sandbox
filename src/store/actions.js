@@ -62,6 +62,10 @@ export default {
       case "Writing Task":
         nextRoute = "/writing";
         break;
+
+      case "Web Dev":
+        nextRoute = "/webdev";
+        break;
     }
 
     router

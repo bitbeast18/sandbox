@@ -7,9 +7,19 @@ export default class Question {
     this.color = "default";
 
     let new_model = null;
+    let js_model = null;
+    let css_model = null;
+    let html_model = null;
+    let editor = new Editor();
 
     if (traits.type === "Coding Task") {
-      new_model = new Editor().newModel(traits.language);
+      new_model = editor.newModel(traits.language);
+    }
+
+    if (traits.type === "Web Dev") {
+      js_model = editor.newModel('javascript');
+      html_model = editor.newModel('html');
+      css_model = editor.newModel('css');
     }
 
     switch (this.type) {
@@ -28,6 +38,13 @@ export default class Question {
 
       case "Writing Task":
         this.wordLimit = traits.wordLimit;
+        break;
+
+      case "Web Dev":
+        this.js_model = js_model;
+        this.html_model = html_model;
+        this.css_model = css_model;
+        this.cur_model = html_model;
         break;
 
       case "Multiple Choice Question":

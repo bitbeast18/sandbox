@@ -21,5 +21,11 @@ export default {
 
   toggleRunDialogState(state) {
     state.runDialogState = !state.runDialogState;
+  },
+
+  toggleWebDialogState(state){
+    state.webDialogState = !state.webDialogState;
   }
+
+
 };

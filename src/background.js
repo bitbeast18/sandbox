@@ -1,6 +1,7 @@
 "use strict";
 
 import { app, protocol, BrowserWindow, ipcMain } from "electron";
+import {resolve} from 'path';
 import {
   createProtocol
   /* installVueDevtools */
@@ -20,7 +21,8 @@ function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      webSecurity: false,
     }
   });
 

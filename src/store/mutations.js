@@ -1,10 +1,13 @@
 import Editor from "@/utils/Editor";
+import Runner from "@/utils/Runner";
+import FileManager from "@/utils/FileManager";
 
 export default {
   // Initialisations.
 
   initStore(state) {
     state.editor = new Editor();
+    state.runner = new Runner();
   },
 
   initCodeEditor(state) {

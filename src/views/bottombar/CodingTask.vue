@@ -18,7 +18,9 @@
       <RunResult></RunResult>
     </v-dialog>
 
-    <v-btn class="ml-4 success" large width="150px" rounded @click="submit">submit code</v-btn>
+    <v-btn class="ml-4 success" large width="150px" rounded @click="submit"
+      >submit code</v-btn
+    >
   </div>
 </template>
 
@@ -42,8 +44,8 @@ export default {
   },
 
   methods: {
-    run: function(){
-      console.log('Running...');
+    run: function() {
+      console.log("Running...");
     },
     submit: function() {
       console.log("Submitting...");

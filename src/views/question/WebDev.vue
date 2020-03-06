@@ -8,7 +8,6 @@
       <pre> {{ statement }} </pre>
 
       <v-divider></v-divider>
-
     </v-card-text>
   </v-card>
 </template>
@@ -18,7 +17,7 @@ export default {
   computed: {
     statement() {
       return this.$store.state.curQuestion.statement;
-    },
+    }
   }
 };
 </script>

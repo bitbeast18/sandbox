@@ -7,7 +7,12 @@
     </v-card-title>
     <v-divider></v-divider>
     <div id="webpageshow">
-    <iframe height="100%" width="100%" frameborder="0" :src="indexPath"></iframe>
+      <iframe
+        height="100%"
+        width="100%"
+        frameborder="0"
+        :src="indexPath"
+      ></iframe>
     </div>
   </v-card>
 </template>
@@ -29,7 +34,7 @@ export default {
 </script>
 
 <style>
-    #webpageshow {
-        height: calc(100vh - 79px);
-    }
+#webpageshow {
+  height: calc(100vh - 79px);
+}
 </style>

@@ -6,20 +6,33 @@ export default class Question {
     this.statement = traits.questionStatement;
     this.color = "default";
 
+    let c_model = null;
+    let cpp_model = null;
+    let java_model = null;
+    let python_model = null;
     let new_model = null;
+
     let js_model = null;
     let css_model = null;
     let html_model = null;
+
     let editor = new Editor();
 
     if (traits.type === "Coding Task") {
-      new_model = editor.newModel(traits.language);
+      if (traits.language === "any") {
+        c_model = editor.newModel("c");
+        cpp_model = editor.newModel("cpp");
+        java_model = editor.newModel("java");
+        python_model = editor.newModel("python");
+      } else {
+        new_model = editor.newModel(traits.language);
+      }
     }
 
     if (traits.type === "Web Dev") {
-      js_model = editor.newModel('javascript');
-      html_model = editor.newModel('html');
-      css_model = editor.newModel('css');
+      js_model = editor.newModel("javascript");
+      html_model = editor.newModel("html");
+      css_model = editor.newModel("css");
     }
 
     switch (this.type) {
@@ -32,8 +45,64 @@ export default class Question {
         this.sample_in = traits.sample_in;
         this.sample_out = traits.sample_out;
 
-        this.lang = traits.language;
-        this.model = new_model;
+        if (traits.language === "any") {
+          this.files = [
+            {
+              name: "C",
+              modelLang: "c",
+              model: c_model
+            },
+            {
+              name: "C++",
+              modelLang: "cpp",
+              model: cpp_model
+            },
+            {
+              name: "JAVA",
+              modelLang: "java",
+              model: java_model
+            },
+            {
+              name: "PYTHON",
+              modelLang: "python",
+              model: python_model
+            }
+          ];
+        } else if (traits.language === "python") {
+          this.files = [
+            {
+              name: "PYTHON",
+              modelLang: "python",
+              model: new_model
+            }
+          ];
+        } else if (traits.language === "c") {
+          this.files = [
+            {
+              name: "C",
+              modelLang: "c",
+              model: new_model
+            }
+          ];
+        } else if (traits.language === "cpp") {
+          this.files = [
+            {
+              name: "C++",
+              modelLang: "cpp",
+              model: new_model
+            }
+          ];
+        } else {
+          this.files = [
+            {
+              name: "JAVA",
+              modelLang: "java",
+              model: new_model
+            }
+          ];
+        }
+
+        this.curFile = this.files[0];
         break;
 
       case "Writing Task":
@@ -41,22 +110,22 @@ export default class Question {
         break;
 
       case "Web Dev":
-        this.files = {
-          js: {
-            name: 'JAVASCRIPT.js',
-            model: js_model
-          },
-          html: {
-            name: 'HTML.html',
+        this.files = [
+          {
+            name: "HTML",
             model: html_model
           },
-          css: {
-            name: 'CSS.css',
+          {
+            name: "CSS",
             model: css_model
+          },
+          {
+            name: "JAVASCRIPT",
+            model: js_model
           }
-        }
+        ];
 
-        this.curFile = this.files.html;
+        this.curFile = this.files[0];
         break;
 
       case "Multiple Choice Question":

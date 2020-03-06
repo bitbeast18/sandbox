@@ -8,7 +8,9 @@
         filled
         placeholder="Language"
         :items="items"
+        item-text="name"
         v-model="lang"
+        return-object
       ></v-select>
     </v-col>
   </div>
@@ -16,24 +18,16 @@
 
 <script>
 export default {
-  mounted() {
-    this.lang = this.items[0];
-  },
-
-  data() {
-    return {
-      lang: null
-    };
-  },
-
   computed: {
     items() {
-      const lang = this.$store.state.curQuestion.lang;
-
-      if (lang === "any") {
-        return ["C", "C++", "JAVA", "PYTHON"];
-      } else {
-        return [lang];
+      return this.$store.state.curQuestion.files;
+    },
+    lang: {
+      get() {
+        return this.$store.state.curQuestion.curFile;
+      },
+      set(newVal) {
+        this.$store.commit("setCodingTaskCurFile", newVal);
       }
     }
   }

@@ -23,14 +23,17 @@ export default {
     state.runDialogState = !state.runDialogState;
   },
 
-  toggleWebDialogState(state){
+  toggleWebDialogState(state) {
     state.webDialogState = !state.webDialogState;
   },
 
-  setWebDevCurFile(state, obj){
+  setWebDevCurFile(state, obj) {
+    state.curQuestion.curFile = obj;
+    state.editor.setModel(obj.model);
+  },
+
+  setCodingTaskCurFile(state, obj) {
     state.curQuestion.curFile = obj;
     state.editor.setModel(obj.model);
   }
-
-
 };

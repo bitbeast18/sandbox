@@ -19,17 +19,16 @@
 
 <script>
 export default {
-
   computed: {
     items() {
       return this.$store.state.curQuestion.files;
     },
     file: {
-      get(){
+      get() {
         return this.$store.state.curQuestion.curFile;
       },
-      set(obj){
-        this.$store.commit.setWebDevCurFile(obj);
+      set(obj) {
+        this.$store.commit("setWebDevCurFile", obj);
       }
     }
   }

@@ -1,4 +1,5 @@
 import Editor from "@/utils/Editor";
+import TestCase from "@/utils/TestCase";
 
 export default class Question {
   constructor(traits) {
@@ -38,34 +39,40 @@ export default class Question {
     switch (this.type) {
       case "Machine Learning":
         this.resources = traits.resources;
+        this.addr = null;
         break;
 
       case "Coding Task":
         this.constraints = traits.constraints;
         this.sample_in = traits.sample_in;
         this.sample_out = traits.sample_out;
+        this.testcases = this.fillTestcases(traits.testcases);
 
         if (traits.language === "any") {
           this.files = [
             {
               name: "C",
               modelLang: "c",
-              model: c_model
+              model: c_model,
+              addr: null
             },
             {
               name: "C++",
               modelLang: "cpp",
-              model: cpp_model
+              model: cpp_model,
+              addr: null
             },
             {
               name: "JAVA",
               modelLang: "java",
-              model: java_model
+              model: java_model,
+              addr: null
             },
             {
               name: "PYTHON",
               modelLang: "python",
-              model: python_model
+              model: python_model,
+              addr: null
             }
           ];
         } else if (traits.language === "python") {
@@ -73,7 +80,8 @@ export default class Question {
             {
               name: "PYTHON",
               modelLang: "python",
-              model: new_model
+              model: new_model,
+              addr: null
             }
           ];
         } else if (traits.language === "c") {
@@ -81,7 +89,8 @@ export default class Question {
             {
               name: "C",
               modelLang: "c",
-              model: new_model
+              model: new_model,
+              addr: null
             }
           ];
         } else if (traits.language === "cpp") {
@@ -89,7 +98,8 @@ export default class Question {
             {
               name: "C++",
               modelLang: "cpp",
-              model: new_model
+              model: new_model,
+              addr: null
             }
           ];
         } else {
@@ -97,7 +107,8 @@ export default class Question {
             {
               name: "JAVA",
               modelLang: "java",
-              model: new_model
+              model: new_model,
+              addr: null
             }
           ];
         }
@@ -113,15 +124,21 @@ export default class Question {
         this.files = [
           {
             name: "HTML",
-            model: html_model
+            modelLang: "html",
+            model: html_model,
+            addr: null
           },
           {
             name: "CSS",
-            model: css_model
+            model: css_model,
+            modelLang: "css",
+            addr: null
           },
           {
             name: "JAVASCRIPT",
-            model: js_model
+            model: js_model,
+            modelLang: "javascript",
+            addr: null
           }
         ];
 
@@ -136,5 +153,21 @@ export default class Question {
         if (traits.op4) this.op.push(traits.op4);
         break;
     }
+  }
+
+  fillTestcases(testcases) {
+    if (testcases === null || testcases === undefined) {
+      return [];
+    }
+
+    let temp = [];
+
+    for (let i = 0; i < testcases.length; i++) {
+      temp.push(
+        new TestCase(testcases[i].inputData, testcases[i].expectedData)
+      );
+    }
+
+    return temp;
   }
 }

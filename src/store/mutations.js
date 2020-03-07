@@ -8,6 +8,7 @@ export default {
   initStore(state) {
     state.editor = new Editor();
     state.runner = new Runner();
+    state.fileManager = new FileManager();
   },
 
   initCodeEditor(state) {

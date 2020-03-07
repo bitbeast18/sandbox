@@ -9,11 +9,14 @@
     <v-card-text>
       <v-row align="center" justify="start">
         <v-col class="shrink" v-for="(t, i) in testcases" :key="i">
-          <v-chip color="t.color"> Testsase {{ i + 1 }} </v-chip>
+          <v-chip @click="setErrArea(i)" :color="t.status">
+            Testcase {{ i + 1 }}
+          </v-chip>
         </v-col>
       </v-row>
-      <v-textarea hide-details no-resize rows="8" background-color="black">
-      </v-textarea>
+      <v-divider class="mt-5"></v-divider>
+      <p class="mb-0 mt-2">STDERR</p>
+      <pre class="black textBox white--text">{{ errArea }}</pre>
     </v-card-text>
   </v-card>
 </template>
@@ -22,15 +25,33 @@
 export default {
   computed: {
     testcases() {
-      return [{ color: "error" }, { color: "success" }];
-      // return this.$store.curQuestion.testcases;
+      console.log(this.$store.state.curQuestion.testcases);
+      return this.$store.state.curQuestion.testcases;
+    },
+    errArea() {
+      return this.$store.state.runTestCaseDialogText;
     }
   },
 
   methods: {
     toggleDialog: function() {
       this.$store.commit("toggleRunDialogState");
+    },
+
+    setErrArea: function(idx) {
+      this.$store.commit("setErrorArea", idx);
     }
   }
 };
 </script>
+
+<style>
+.textBox {
+  overflow: scroll;
+  height: 25vh;
+  resize: none;
+  padding: 5px;
+  border: 1px solid grey;
+  outline: none;
+}
+</style>

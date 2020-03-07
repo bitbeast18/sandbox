@@ -1,6 +1,5 @@
 import fs from "fs";
-import path from "path";
-import { spawnSync } from "child_process";
+import { spawnSync, execSync } from "child_process";
 
 export default class Runner {
   constructor() {
@@ -9,95 +8,142 @@ export default class Runner {
 
   // Methods responsible for Compiling CodeFile source.
 
-  compileC(addr, lang_dir) {
-    const exe_addr = path.resolve(lang_dir, path.basename(addr, ".c"));
-
-    const compiler_out = spawnSync("gcc", [addr, "-o", exe_addr], {
+  compileC(addr, execPath) {
+    const compiler_out = spawnSync("gcc", [addr, "-o", execPath], {
       encoding: "utf-8",
       windowsHide: true
     });
 
-    compiler_out.exe_addr = exe_addr;
     return compiler_out;
   }
 
-  compileCPP(addr, lang_dir) {
-    const exe_addr = path.resolve(lang_dir, path.basename(addr, ".cpp"));
-
-    const compiler_out = spawnSync("g++", [addr, "-o", exe_addr], {
+  compileCPP(addr, execPath) {
+    const compiler_out = spawnSync("g++", [addr, "-o", execPath], {
       encoding: "utf-8",
       windowsHide: true
     });
 
-    compiler_out.exe_addr = exe_addr;
     return compiler_out;
   }
 
-  compileJAVA(addr, lang_dir) {
-    const exe_addr = path.resolve(lang_dir, path.basename(addr, ".java"));
-
-    if (!fs.existsSync(exe_addr)) {
-      fs.mkdirSync(exe_addr);
+  compileJAVA(addr, execPath) {
+    if (fs.existsSync(execPath)) {
+      execSync("rm -rf " + execPath);
     }
 
-    const compiler_out = spawnSync("javac", ["-d", exe_addr, addr], {
+    fs.mkdirSync(execPath);
+
+    const compiler_out = spawnSync("javac", ["-d", execPath, addr], {
       encoding: "utf-8",
       windowsHide: true
     });
 
-    compiler_out.exe_addr = exe_addr;
     return compiler_out;
   }
 
   // Methods responsible for Running CodeFile source.
 
-  runC(testcase, addr) {
-    const runner_out = spawnSync(addr, {
-      input: testcase.input,
-      encoding: "utf-8",
-      windowsHide: true
-    });
+  runC(curQuestion, runPath) {
+    let runner_out;
 
-    return runner_out;
-  }
+    for (let i = 0; i < curQuestion.testcases.length; i++) {
+      runner_out = spawnSync(runPath, {
+        input: curQuestion.testcases[i].input,
+        encoding: "utf-8",
+        windowsHide: true
+      });
 
-  runCPP(testcase, addr) {
-    const runner_out = spawnSync(addr, {
-      input: testcase.input,
-      encoding: "utf-8",
-      windowsHide: true
-    });
+      if (runner_out.status === 0) {
+        // Testcase ran successfully.
+        curQuestion.testcases[i].stdout = runner_out.stdout.trim();
+        curQuestion.testcases[i].stderr = runner_out.stderr.trim();
 
-    return runner_out;
-  }
-
-  runJAVA(testcase, addr) {
-    let class_name = null;
-
-    if (fs.existsSync(path.resolve(addr, path.basename(addr) + ".class"))) {
-      // If class with main is public
-      class_name = path.basename(addr);
-    } else {
-      // If class with main is not public
-      class_name = "Solution";
+        curQuestion.testcases[i].status =
+          curQuestion.testcases[i].stdout === curQuestion.testcases[i].expected
+            ? "success"
+            : "error";
+      } else {
+        curQuestion.testcases[i].status = "error";
+        curQuestion.testcases[i].stderr = runner_out.stderr.trim();
+      }
     }
-
-    const runner_out = spawnSync("java", ["-cp", addr, class_name], {
-      input: testcase.input,
-      encoding: "utf-8",
-      windowsHide: true
-    });
-
-    return runner_out;
   }
 
-  runPY(testcase, addr) {
-    const interpreter_out = spawnSync("python3", [addr], {
-      input: testcase.input,
-      encoding: "utf-8",
-      windowsHide: true
-    });
+  runCPP(curQuestion, runPath) {
+    let runner_out;
 
-    return interpreter_out;
+    for (let i = 0; i < curQuestion.testcases.length; i++) {
+      runner_out = spawnSync(runPath, {
+        input: curQuestion.testcases[i].input,
+        encoding: "utf-8",
+        windowsHide: true
+      });
+
+      if (runner_out.status === 0) {
+        // Testcases ran successfully.
+        curQuestion.testcases[i].stdout = runner_out.stdout.trim();
+        curQuestion.testcases[i].stderr = runner_out.stderr.trim();
+
+        curQuestion.testcases[i].status =
+          curQuestion.testcases[i].stdout === curQuestion.testcases[i].expected
+            ? "success"
+            : "error";
+      } else {
+        curQuestion.testcases[i].status = "error";
+        curQuestion.testcases[i].stderr = runner_out.stderr.trim();
+      }
+    }
+  }
+
+  runJAVA(curQuestion, runDir) {
+    let runner_out;
+
+    for (let i = 0; i < curQuestion.testcases.length; i++) {
+      runner_out = spawnSync("java", ["-cp", runDir, "Solution"], {
+        input: curQuestion.testcases[i].input,
+        encoding: "utf-8",
+        windowsHide: true
+      });
+
+      if (runner_out.status === 0) {
+        // Testcases ran successfully.
+        curQuestion.testcases[i].stdout = runner_out.stdout.trim();
+        curQuestion.testcases[i].stderr = runner_out.stderr.trim();
+
+        curQuestion.testcases[i].status =
+          curQuestion.testcases[i].stdout === curQuestion.testcases[i].expected
+            ? "success"
+            : "error";
+      } else {
+        curQuestion.testcases[i].status = "error";
+        curQuestion.testcases[i].stderr = runner_out.stderr.trim();
+      }
+    }
+  }
+
+  runPY(curQuestion) {
+    let runner_out;
+
+    for (let i = 0; i < curQuestion.testcases.length; i++) {
+      runner_out = spawnSync("python3", [curQuestion.curFile.addr], {
+        input: curQuestion.testcases[i].input,
+        encoding: "utf-8",
+        windowsHide: true
+      });
+
+      if (runner_out.status === 0) {
+        // Testcases ran successfully.
+        curQuestion.testcases[i].stdout = runner_out.stdout.trim();
+        curQuestion.testcases[i].stderr = runner_out.stderr.trim();
+
+        curQuestion.testcases[i].status =
+          curQuestion.testcases[i].stdout === curQuestion.testcases[i].expected
+            ? "success"
+            : "error";
+      } else {
+        curQuestion.testcases[i].status = "error";
+        curQuestion.testcases[i].stderr = runner_out.stderr.trim();
+      }
+    }
   }
 }

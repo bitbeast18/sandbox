@@ -25,5 +25,8 @@ export default {
 
   // Dialog
   runDialogState: false,
-  webDialogState: false
+  webDialogState: false,
+
+  // Dialog Text
+  runTestCaseDialogText: ""
 };

@@ -11,7 +11,7 @@
         height="100%"
         width="100%"
         frameborder="0"
-        :src="indexPath"
+        :srcdoc="index"
       ></iframe>
     </div>
   </v-card>
@@ -19,9 +19,13 @@
 
 <script>
 export default {
+  mounted() {
+    console.log("mounted...");
+  },
+
   computed: {
-    indexPath() {
-      return "file:///home/bitbeast/repos/sandbox/localTest/test.html";
+    index() {
+      return this.$store.state.curQuestion.files[0].model.getValue();
     }
   },
 

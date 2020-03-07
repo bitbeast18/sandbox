@@ -24,6 +24,9 @@ export default {
   },
 
   toggleRunDialogState(state) {
+    if (state.runDialogState) {
+      state.runTestCaseDialogText = "";
+    }
     state.runDialogState = !state.runDialogState;
   },
 
@@ -39,5 +42,10 @@ export default {
   setCodingTaskCurFile(state, obj) {
     state.curQuestion.curFile = obj;
     state.editor.setModel(obj.model);
+  },
+
+  setErrorArea(state, idx) {
+    console.log(state.curQuestion.testcases[idx]);
+    state.runTestCaseDialogText = state.curQuestion.testcases[idx].stderr;
   }
 };

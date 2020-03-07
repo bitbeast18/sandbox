@@ -45,7 +45,7 @@ export default {
 
   methods: {
     render: function() {
-      console.log("Running...");
+      this.$store.state.fileManager.saveFile(this.$store.state.curQuestion);
     },
     submit: function() {
       console.log("Submitting...");

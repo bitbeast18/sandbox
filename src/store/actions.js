@@ -38,11 +38,11 @@ export default {
         state.loginLoader = false;
         ipcRenderer.send("session-started");
         dispatch("changeRoute");
+      })
+      .catch(err => {
+        alert(err.message);
+        state.loginLoader = false;
       });
-    // .catch(err => {
-    //   alert(err.message);
-    //   state.loginLoader = false;
-    // });
   },
 
   changeRoute({ state }) {
@@ -75,5 +75,60 @@ export default {
       .catch(err => {
         console.log("ignore: \n" + err);
       });
+  },
+
+  runCodingTask({ state }) {
+    state.fileManager.saveFile(state.curQuestion);
+
+    if (state.curQuestion.curFile.name === "PYTHON") {
+      // Python code handling.
+
+      state.runner.runPY(state.curQuestion);
+    } else if (state.curQuestion.curFile.name === "C") {
+      // C code handling.
+
+      let compile_out = state.runner.compileC(
+        state.curQuestion.curFile.addr,
+        state.fileManager.compiled_data.c
+      );
+
+      if (compile_out.status === 0) {
+        state.runner.runC(state.curQuestion, state.fileManager.compiled_data.c);
+      } else {
+        state.runTestCaseDialogText = compile_out.stderr.trim();
+      }
+    } else if (state.curQuestion.curFile.name === "C++") {
+      // C++ code handling.
+
+      let compile_out = state.runner.compileCPP(
+        state.curQuestion.curFile.addr,
+        state.fileManager.compiled_data.cpp
+      );
+
+      if (compile_out.status === 0) {
+        state.runner.runCPP(
+          state.curQuestion,
+          state.fileManager.compiled_data.cpp
+        );
+      } else {
+        state.runTestCaseDialogText = compile_out.stderr.trim();
+      }
+    } else {
+      // Java code handling.
+
+      let compile_out = state.runner.compileJAVA(
+        state.curQuestion.curFile.addr,
+        state.fileManager.compiled_data.java
+      );
+
+      if (compile_out.status === 0) {
+        state.runner.runJAVA(
+          state.curQuestion,
+          state.fileManager.compiled_data.java
+        );
+      } else {
+        state.runTestCaseDialogText = compile_out.stderr.trim();
+      }
+    }
   }
 };

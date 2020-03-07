@@ -6,11 +6,33 @@ import { execSync } from "child_process";
 export default class FileManager {
   constructor() {
     this.base_addr = null;
+
+    if (fs.existsSync(path.resolve(os.tmpdir(), "compiled_data"))) {
+      execSync("rm -rf " + path.resolve(os.tmpdir(), "compiled_data"));
+    }
+
+    fs.mkdirSync(path.resolve(os.tmpdir(), "compiled_data"));
+
+    // Python doesn't needs to be compiled :)
+
+    fs.mkdirSync(path.resolve(os.tmpdir(), "compiled_data", "c"));
+    fs.mkdirSync(path.resolve(os.tmpdir(), "compiled_data", "cpp"));
+    fs.mkdirSync(path.resolve(os.tmpdir(), "compiled_data", "java"));
+
+    this.compiled_data = {
+      c: path.resolve(os.tmpdir(), "compiled_data", "c", "target"),
+      cpp: path.resolve(os.tmpdir(), "compiled_data", "cpp", "target"),
+      java: path.resolve(os.tmpdir(), "compiled_data", "java", "target")
+    };
+
+    fs.writeFileSync(this.compiled_data.c);
+    fs.writeFileSync(this.compiled_data.cpp);
+    fs.mkdirSync(this.compiled_data.java);
   }
 
   setupFileManager(questions, testId) {
     this.base_addr = path.resolve(os.tmpdir(), testId);
-    
+
     /*
      ** Danger !!!
      ** Destructive command ahead.
@@ -74,7 +96,9 @@ export default class FileManager {
           }
 
           if (
-            !fs.existsSync(path.resolve(this.base_addr, "webDev", "que" + (i + 1)))
+            !fs.existsSync(
+              path.resolve(this.base_addr, "webDev", "que" + (i + 1))
+            )
           ) {
             fs.mkdirSync(
               path.resolve(this.base_addr, "webDev", "que" + (i + 1))
@@ -103,6 +127,15 @@ export default class FileManager {
 
         fs.writeFileSync(questions[i].addr, "");
       }
+    }
+  }
+
+  saveFile(curQuestion) {
+    for (let i = 0; i < curQuestion.files.length; i++) {
+      let content = curQuestion.files[i].model.getValue();
+      let file = curQuestion.files[i].addr;
+
+      fs.writeFileSync(file, content);
     }
   }
 }

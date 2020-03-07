@@ -45,7 +45,7 @@ export default {
 
   methods: {
     run: function() {
-      console.log("Running...");
+      this.$store.dispatch("runCodingTask");
     },
     submit: function() {
       console.log("Submitting...");

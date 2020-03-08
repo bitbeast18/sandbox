@@ -6,6 +6,8 @@ import {
   /* installVueDevtools */
 } from "vue-cli-plugin-electron-builder/lib";
 import {autoUpdater} from "electron-updater";
+import path from "path";
+
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -23,7 +25,8 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
       webSecurity: false
-    }
+    },
+    icon: path.join(__static, 'icon.png')
   });
 
   win.maximize();

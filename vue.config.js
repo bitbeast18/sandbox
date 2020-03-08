@@ -4,7 +4,8 @@ module.exports = {
     electronBuilder: {
       builderOptions: {
         publish: ['github']
-      }
+      },
+      removeElectronJunk: false
     }
   }
 };

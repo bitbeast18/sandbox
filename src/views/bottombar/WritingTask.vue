@@ -1,6 +1,12 @@
 <template>
   <div>
-    <v-btn class="ml-4 success" @click="save" large width="150px" rounded
+    <v-btn
+      class="ml-4 success"
+      @click="save"
+      :loading="submitLoader"
+      large
+      width="150px"
+      rounded
       >save</v-btn
     >
   </div>
@@ -8,9 +14,14 @@
 
 <script>
 export default {
+  computed: {
+    submitLoader() {
+      return this.$store.state.submitLoader;
+    }
+  },
   methods: {
     save: function() {
-      console.log("Save...");
+      this.$store.dispatch("submitTask", "WritingTask");
     }
   }
 };

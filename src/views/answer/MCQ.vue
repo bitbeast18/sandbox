@@ -15,19 +15,21 @@
 
 <script>
 export default {
-  data() {
-    return {
-      answer: null
-    };
-  },
-
   computed: {
     items() {
-      console.log(this.$store.state.curQuestion);
       return this.$store.state.curQuestion.op;
     },
     statement() {
       return this.$store.state.curQuestion.problemStatement;
+    },
+    answer: {
+      get() {
+        return this.$store.state.curQuestion.answer.option;
+      },
+      set(newVal) {
+        console.log(newVal);
+        this.$store.commit("updateMCQ", newVal);
+      }
     }
   }
 };

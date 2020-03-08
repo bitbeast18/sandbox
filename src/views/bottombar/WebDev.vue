@@ -18,7 +18,13 @@
       <WebResult></WebResult>
     </v-dialog>
 
-    <v-btn class="ml-4 success" large width="150px" rounded @click="submit"
+    <v-btn
+      class="ml-4 success"
+      large
+      width="150px"
+      :loading="submitLoader"
+      rounded
+      @click="submit"
       >submit code</v-btn
     >
   </div>
@@ -40,6 +46,9 @@ export default {
       set() {
         this.$store.commit("toggleWebDialogState");
       }
+    },
+    submitLoader() {
+      return this.$store.state.submitLoader;
     }
   },
 
@@ -48,7 +57,7 @@ export default {
       this.$store.state.fileManager.saveFile(this.$store.state.curQuestion);
     },
     submit: function() {
-      console.log("Submitting...");
+      this.$store.dispatch("submitTask", "WebDev");
     }
   }
 };

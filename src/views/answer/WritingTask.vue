@@ -23,10 +23,15 @@
 
 <script>
 export default {
-  data() {
-    return {
-      answer: null
-    };
+  computed: {
+    answer: {
+      get() {
+        return this.$store.state.curQuestion.answer;
+      },
+      set(newVal) {
+        this.$store.commit("updateWritingTask", newVal);
+      }
+    }
   }
 };
 </script>

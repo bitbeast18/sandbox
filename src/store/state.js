@@ -6,6 +6,8 @@ export default {
   editor: null,
   runner: null,
   notifier: null,
+  submitManager: null,
+  fileManager: null,
 
   hasMl: true,
 
@@ -29,21 +31,12 @@ export default {
   loginLoader: false,
   nextLoader: false,
   prevLoader: false,
+  submitLoader: false,
+  endTestLoader: false,
 
   // Coding Task
   runCodeLoader: false,
-  submitCodeLoader: false,
 
   // Web Dev
-  renderCodeLoader: false,
-  submitWebCodeLoader: false,
-
-  // ML
-  submitNotebookLoader: false,
-
-  // MCQ
-  saveMCQLoader: false,
-
-  // Writing Task
-  saveWTLoader: false
+  renderCodeLoader: false
 };

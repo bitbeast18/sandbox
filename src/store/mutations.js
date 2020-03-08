@@ -1,6 +1,7 @@
 import Editor from "@/utils/Editor";
 import Runner from "@/utils/Runner";
 import FileManager from "@/utils/FileManager";
+import SubmitManager from "@/utils/SubmitManager";
 
 export default {
   // Initialisations.
@@ -9,6 +10,7 @@ export default {
     state.editor = new Editor();
     state.runner = new Runner();
     state.fileManager = new FileManager();
+    state.submitManager = new SubmitManager();
   },
 
   initCodeEditor(state) {
@@ -47,5 +49,16 @@ export default {
   setErrorArea(state, idx) {
     console.log(state.curQuestion.testcases[idx]);
     state.runTestCaseDialogText = state.curQuestion.testcases[idx].stderr;
+  },
+
+  updateMCQ(state, val) {
+    state.curQuestion.answer.option = val;
+    console.log(val);
+    state.curQuestion.answer.value = state.curQuestion.op[val];
+    console.log(state.curQuestion.op[val]);
+  },
+
+  updateWritingTask(state, val) {
+    state.curQuestion.answer = val;
   }
 };

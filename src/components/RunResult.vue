@@ -15,7 +15,9 @@
         </v-col>
       </v-row>
       <v-divider class="mt-5"></v-divider>
-      <p class="mb-0 mt-2">STDERR</p>
+      <p class="mb-0 mt-2">
+        Execution Status (Click on the testcase to view corresponding status)
+      </p>
       <pre class="black textBox white--text">{{ errArea }}</pre>
     </v-card-text>
   </v-card>

@@ -111,9 +111,9 @@ export default class Runner {
           : "error";
 
       if (curQuestion.testcases[i].status === "success") {
-        curQuestion.testcases[i].stderr = "Correct Answer";
+        curQuestion.testcases[i].stderr = "Correct Answer!";
       } else {
-        curQuestion.testcases[i].stderr = "Wrong Answer";
+        curQuestion.testcases[i].stderr = "Wrong Answer!";
       }
     } else {
       curQuestion.testcases[i].status = "error";

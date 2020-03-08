@@ -34,15 +34,16 @@ export default {
         }
 
         state.fileManager.setupFileManager(state.allQuestions, state.testId);
+        state.submitManager.setupSubmitManager(state.userId, state.testId);
 
         state.loginLoader = false;
         ipcRenderer.send("session-started");
         dispatch("changeRoute");
+      })
+      .catch(err => {
+        alert(err.message);
+        state.loginLoader = false;
       });
-    // .catch(err => {
-    //   alert(err.message);
-    //   state.loginLoader = false;
-    // });
   },
 
   changeRoute({ state }) {
@@ -78,6 +79,8 @@ export default {
   },
 
   runCodingTask({ state, dispatch }) {
+    state.runCodeLoader = true;
+
     state.fileManager.saveFile(state.curQuestion);
 
     dispatch("resetTestCases");
@@ -132,6 +135,8 @@ export default {
         state.runTestCaseDialogText = compile_out.stderr.trim();
       }
     }
+
+    state.runCodeLoader = false;
   },
 
   resetTestCases({ state }) {
@@ -140,5 +145,55 @@ export default {
       state.curQuestion.testcases[i].stdout = "";
       state.curQuestion.testcases[i].status = "default";
     }
+  },
+
+  submitTask({ state, dispatch }, type) {
+    state.submitLoader = true;
+
+    if (type === "CodingTask") {
+
+      dispatch("runCodingTask");
+      
+      state.submitManager.submitCodingTask(
+        state.curQuestion,
+        state.curQuestionIdx
+      );
+    } else if (type === "WritingTask") {
+      state.submitManager.submitWritingTask(
+        state.curQuestion,
+        state.curQuestionIdx
+      );
+    } else if (type === "MCQ") {
+      state.submitManager.submitMCQ(state.curQuestion, state.curQuestionIdx);
+    } else if (type === "ML") {
+      state.submitManager.submitML(state.curQuestion, state.curQuestionIdx);
+    } else {
+      // type === "Web Dev"
+      state.submitManager.submitWebDev(state.curQuestion, state.curQuestionIdx);
+    }
+
+    state.curQuestion.color = "success"; // Means saved and visited.
+
+    state.submitLoader = false;
+  },
+
+  endTest({ state }) {
+    state.endTestLoader = true;
+    state.submitManager.createBackupFile();
+
+    // destructive action ahead.
+    state.fileManager.cleanup();
+
+    let data = {};
+    data[state.userId] = state.submitManager.submitValue();
+
+    db.collection("submissionBunch")
+      .doc(state.testId)
+      .update(data)
+      .then(function() {
+        state.endTestLoader = false;
+        router.push("/landing");
+        ipcRenderer.send("session-ended");
+      });
   }
 };

@@ -39,7 +39,10 @@ export default class Question {
     switch (this.type) {
       case "Machine Learning":
         this.resources = traits.resources;
-        this.addr = null;
+        this.addr = {
+          rel: null,
+          abs: null
+        };
         break;
 
       case "Coding Task":
@@ -118,6 +121,7 @@ export default class Question {
 
       case "Writing Task":
         this.wordLimit = traits.wordLimit;
+        this.answer = null;
         break;
 
       case "Web Dev":
@@ -151,6 +155,10 @@ export default class Question {
         if (traits.op2) this.op.push(traits.op2);
         if (traits.op3) this.op.push(traits.op3);
         if (traits.op4) this.op.push(traits.op4);
+        this.answer = {
+          option: null,
+          value: null
+        };
         break;
     }
   }

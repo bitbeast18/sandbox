@@ -43,14 +43,12 @@ export default class FileManager {
      */
 
     if (fs.existsSync(this.base_addr)) {
-      execSync("rm -rf " + this.base_addr);
+      this.cleanup();
     }
 
     // Destructive command ends here.
 
     fs.mkdirSync(path.resolve(os.tmpdir(), testId));
-
-    console.log(questions);
 
     for (let i = 0; i < questions.length; i++) {
       if (questions[i].type === "Coding Task") {
@@ -119,11 +117,6 @@ export default class FileManager {
           fs.mkdirSync(path.resolve(this.base_addr, "machineLearning"));
         }
 
-        questions[i].addr = {
-          abs: null,
-          rel: null
-        };
-
         questions[i].addr.abs = path.resolve(
           this.base_addr,
           "machineLearning",
@@ -156,6 +149,16 @@ export default class FileManager {
       let file = curQuestion.files[i].addr;
 
       fs.writeFileSync(file, content);
+    }
+  }
+
+  cleanup() {
+    if (fs.existsSync(this.base_addr)) {
+      if (process.platform === "win32") {
+        execSync("rd /s /q " + this.base_addr);
+      } else {
+        execSync("rm -rf " + this.base_addr);
+      }
     }
   }
 }

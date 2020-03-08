@@ -7,19 +7,23 @@
   >
     <router-view name="appbar" :key="getKey"></router-view>
     <v-spacer></v-spacer>
-    <v-btn large rounded class="error" width="180px" @click="endTest"
+    <v-btn
+      large
+      rounded
+      class="error"
+      :loading="endTestLoader"
+      width="180px"
+      @click="endTest"
       >end test</v-btn
     >
   </v-app-bar>
 </template>
 
 <script>
-import { ipcRenderer } from "electron";
 export default {
   methods: {
     endTest: function() {
-      ipcRenderer.send("session-ended");
-      this.$router.push("/landing");
+      this.$store.dispatch("endTest");
     }
   },
   computed: {
@@ -28,6 +32,9 @@ export default {
     },
     getKey() {
       return this.$store.state.curQuestionIdx;
+    },
+    endTestLoader() {
+      return this.$store.state.endTestLoader;
     }
   }
 };

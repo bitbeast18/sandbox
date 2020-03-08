@@ -19,10 +19,6 @@
 
 <script>
 export default {
-  mounted() {
-    console.log("mounted...");
-  },
-
   computed: {
     index() {
       return this.$store.state.curQuestion.files[0].model.getValue();

@@ -128,8 +128,6 @@ export default class FileManager {
           questions[i].addr.abs
         );
 
-        console.log(questions[i].addr);
-
         fs.writeFileSync(
           questions[i].addr.abs,
           `{

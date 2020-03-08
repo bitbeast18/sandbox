@@ -47,15 +47,12 @@ export default {
   },
 
   setErrorArea(state, idx) {
-    console.log(state.curQuestion.testcases[idx]);
     state.runTestCaseDialogText = state.curQuestion.testcases[idx].stderr;
   },
 
   updateMCQ(state, val) {
     state.curQuestion.answer.option = val;
-    console.log(val);
     state.curQuestion.answer.value = state.curQuestion.op[val];
-    console.log(state.curQuestion.op[val]);
   },
 
   updateWritingTask(state, val) {

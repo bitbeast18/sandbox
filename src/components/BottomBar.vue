@@ -71,7 +71,6 @@ export default {
         return this.$store.state.isDockLeft;
       },
       set(newValue) {
-        console.log(newValue);
         this.$store.state.isDockLeft = newValue;
       }
     }

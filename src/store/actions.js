@@ -21,7 +21,6 @@ export default {
       .doc(state.testId)
       .get()
       .then(docref => {
-        console.log(docref.data());
         // Change problems to question in database later [inconsistency]
         for (let question of docref.data().problems) {
           state.allQuestions.push(new Question(question));
@@ -73,9 +72,7 @@ export default {
 
     router
       .push("/session" + nextRoute + "/" + state.curQuestionIdx)
-      .catch(err => {
-        console.log("ignore: \n" + err);
-      });
+      .catch(() => {});
   },
 
   runCodingTask({ state, dispatch }) {
@@ -151,9 +148,8 @@ export default {
     state.submitLoader = true;
 
     if (type === "CodingTask") {
-
       dispatch("runCodingTask");
-      
+
       state.submitManager.submitCodingTask(
         state.curQuestion,
         state.curQuestionIdx

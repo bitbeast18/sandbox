@@ -1,11 +1,13 @@
 "use strict";
 
+/* global __static */
+
 import { app, protocol, BrowserWindow, ipcMain } from "electron";
 import {
   createProtocol
   /* installVueDevtools */
 } from "vue-cli-plugin-electron-builder/lib";
-import {autoUpdater} from "electron-updater";
+import { autoUpdater } from "electron-updater";
 import path from "path";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
@@ -26,7 +28,7 @@ function createWindow() {
       nodeIntegration: true,
       webSecurity: false
     },
-    icon: path.join(__static, 'icon.png')
+    icon: path.join(__static, "icon.png")
   });
 
   win.maximize();

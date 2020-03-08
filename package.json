@@ -1,5 +1,7 @@
 {
   "name": "sandbox",
+  "author": "Harshal Nandigramwar <pro.bbcom18@gmail.com>",
+  "description": "A tool for proctured assessments.",
   "version": "0.1.0",
   "private": true,
   "scripts": {

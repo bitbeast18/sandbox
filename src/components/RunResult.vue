@@ -27,7 +27,6 @@
 export default {
   computed: {
     testcases() {
-      console.log(this.$store.state.curQuestion.testcases);
       return this.$store.state.curQuestion.testcases;
     },
     errArea() {

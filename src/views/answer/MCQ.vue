@@ -27,7 +27,6 @@ export default {
         return this.$store.state.curQuestion.answer.option;
       },
       set(newVal) {
-        console.log(newVal);
         this.$store.commit("updateMCQ", newVal);
       }
     }

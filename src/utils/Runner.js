@@ -53,19 +53,7 @@ export default class Runner {
         windowsHide: true
       });
 
-      if (runner_out.status === 0) {
-        // Testcase ran successfully.
-        curQuestion.testcases[i].stdout = runner_out.stdout.trim();
-        curQuestion.testcases[i].stderr = runner_out.stderr.trim();
-
-        curQuestion.testcases[i].status =
-          curQuestion.testcases[i].stdout === curQuestion.testcases[i].expected
-            ? "success"
-            : "error";
-      } else {
-        curQuestion.testcases[i].status = "error";
-        curQuestion.testcases[i].stderr = runner_out.stderr.trim();
-      }
+      this.gradeOutput(curQuestion, i, runner_out);
     }
   }
 
@@ -79,19 +67,7 @@ export default class Runner {
         windowsHide: true
       });
 
-      if (runner_out.status === 0) {
-        // Testcases ran successfully.
-        curQuestion.testcases[i].stdout = runner_out.stdout.trim();
-        curQuestion.testcases[i].stderr = runner_out.stderr.trim();
-
-        curQuestion.testcases[i].status =
-          curQuestion.testcases[i].stdout === curQuestion.testcases[i].expected
-            ? "success"
-            : "error";
-      } else {
-        curQuestion.testcases[i].status = "error";
-        curQuestion.testcases[i].stderr = runner_out.stderr.trim();
-      }
+      this.gradeOutput(curQuestion, i, runner_out);
     }
   }
 
@@ -105,19 +81,7 @@ export default class Runner {
         windowsHide: true
       });
 
-      if (runner_out.status === 0) {
-        // Testcases ran successfully.
-        curQuestion.testcases[i].stdout = runner_out.stdout.trim();
-        curQuestion.testcases[i].stderr = runner_out.stderr.trim();
-
-        curQuestion.testcases[i].status =
-          curQuestion.testcases[i].stdout === curQuestion.testcases[i].expected
-            ? "success"
-            : "error";
-      } else {
-        curQuestion.testcases[i].status = "error";
-        curQuestion.testcases[i].stderr = runner_out.stderr.trim();
-      }
+      this.gradeOutput(curQuestion, i, runner_out);
     }
   }
 
@@ -131,19 +95,29 @@ export default class Runner {
         windowsHide: true
       });
 
-      if (runner_out.status === 0) {
-        // Testcases ran successfully.
-        curQuestion.testcases[i].stdout = runner_out.stdout.trim();
-        curQuestion.testcases[i].stderr = runner_out.stderr.trim();
+      this.gradeOutput(curQuestion, i, runner_out);
+    }
+  }
 
-        curQuestion.testcases[i].status =
-          curQuestion.testcases[i].stdout === curQuestion.testcases[i].expected
-            ? "success"
-            : "error";
+  gradeOutput(curQuestion, i, runner_out) {
+    if (runner_out.status === 0) {
+      // Testcase ran successfully.
+      curQuestion.testcases[i].stdout = runner_out.stdout.trim();
+      curQuestion.testcases[i].stderr = runner_out.stderr.trim();
+
+      curQuestion.testcases[i].status =
+        curQuestion.testcases[i].stdout === curQuestion.testcases[i].expected
+          ? "success"
+          : "error";
+
+      if (curQuestion.testcases[i].status === "success") {
+        curQuestion.testcases[i].stderr = "Correct Answer";
       } else {
-        curQuestion.testcases[i].status = "error";
-        curQuestion.testcases[i].stderr = runner_out.stderr.trim();
+        curQuestion.testcases[i].stderr = "Wrong Answer";
       }
+    } else {
+      curQuestion.testcases[i].status = "error";
+      curQuestion.testcases[i].stderr = runner_out.stderr.trim();
     }
   }
 }

@@ -77,8 +77,10 @@ export default {
       });
   },
 
-  runCodingTask({ state }) {
+  runCodingTask({ state, dispatch }) {
     state.fileManager.saveFile(state.curQuestion);
+
+    dispatch("resetTestCases");
 
     if (state.curQuestion.curFile.name === "PYTHON") {
       // Python code handling.
@@ -129,6 +131,14 @@ export default {
       } else {
         state.runTestCaseDialogText = compile_out.stderr.trim();
       }
+    }
+  },
+
+  resetTestCases({ state }) {
+    for (let i = 0; i < state.curQuestion.testcases.length; i++) {
+      state.curQuestion.testcases[i].stderr = "";
+      state.curQuestion.testcases[i].stdout = "";
+      state.curQuestion.testcases[i].status = "default";
     }
   }
 };

@@ -18,15 +18,32 @@ export default {
   curQuestion: null,
   curQuestionIdx: null,
 
-  // Loaders
-  loginLoader: false,
-  nextLoader: false,
-  prevLoader: false,
-
   // Dialog
   runDialogState: false,
   webDialogState: false,
 
   // Dialog Text
-  runTestCaseDialogText: ""
+  runTestCaseDialogText: "",
+
+  // Loaders
+  loginLoader: false,
+  nextLoader: false,
+  prevLoader: false,
+
+  // Coding Task
+  runCodeLoader: false,
+  submitCodeLoader: false,
+
+  // Web Dev
+  renderCodeLoader: false,
+  submitWebCodeLoader: false,
+
+  // ML
+  submitNotebookLoader: false,
+
+  // MCQ
+  saveMCQLoader: false,
+
+  // Writing Task
+  saveWTLoader: false
 };

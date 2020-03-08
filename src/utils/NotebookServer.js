@@ -1,10 +1,12 @@
 import { exec } from "child_process";
+import os from "os";
 
 class NotebookServer {
   constructor() {
     console.log("Working server...");
     this.childProcess = null;
-    this.command = "jupyter notebook --no-mathjax --no-browser --port=10301";
+    this.command = `jupyter notebook --no-mathjax --no-browser --port=10301 --notebook-dir="${os.tmpdir()}"`;
+    console.log(this.command);
   }
 
   startServer() {

@@ -38,11 +38,11 @@ export default {
         state.loginLoader = false;
         ipcRenderer.send("session-started");
         dispatch("changeRoute");
-      })
-      .catch(err => {
-        alert(err.message);
-        state.loginLoader = false;
       });
+    // .catch(err => {
+    //   alert(err.message);
+    //   state.loginLoader = false;
+    // });
   },
 
   changeRoute({ state }) {

@@ -12,8 +12,12 @@
 export default {
   computed: {
     notebookPath() {
-      return "http://localhost:10301/tree/test.ipynb";
-      // return this.$store.state.curQuestion.addr;
+      console.log(
+        "http://localhost:10301/tree/" + this.$store.state.curQuestion.addr.rel
+      );
+      return (
+        "http://localhost:10301/tree/" + this.$store.state.curQuestion.addr.rel
+      );
     }
   }
 };

@@ -119,13 +119,33 @@ export default class FileManager {
           fs.mkdirSync(path.resolve(this.base_addr, "machineLearning"));
         }
 
-        questions[i].addr = path.resolve(
+        questions[i].addr = {
+          abs: null,
+          rel: null
+        };
+
+        questions[i].addr.abs = path.resolve(
           this.base_addr,
           "machineLearning",
           "que" + (i + 1) + ".ipynb"
         );
 
-        fs.writeFileSync(questions[i].addr, "");
+        questions[i].addr.rel = path.relative(
+          os.tmpdir(),
+          questions[i].addr.abs
+        );
+
+        console.log(questions[i].addr);
+
+        fs.writeFileSync(
+          questions[i].addr.abs,
+          `{
+          "cells": [],
+          "metadata": {},
+          "nbformat": 4,
+          "nbformat_minor": 2
+         }`
+        );
       }
     }
   }

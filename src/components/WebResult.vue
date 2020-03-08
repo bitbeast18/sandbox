@@ -10,7 +10,7 @@
       <iframe
         height="100%"
         width="100%"
-        frameborder="0"
+        frameborder="1"
         :srcdoc="index"
       ></iframe>
     </div>

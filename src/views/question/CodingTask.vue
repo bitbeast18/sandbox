@@ -1,6 +1,6 @@
 <template>
   <v-card flat class="centerElem fill-height">
-    <v-card-title> Question </v-card-title>
+    <v-card-title> Question {{ idx }} </v-card-title>
     <v-card-text>
       <v-divider></v-divider>
 
@@ -42,6 +42,10 @@ export default {
 
     sample_out() {
       return this.$store.state.curQuestion.sample_out;
+    },
+
+    idx() {
+      return this.$store.state.curQuestionIdx + 1;
     }
   }
 };

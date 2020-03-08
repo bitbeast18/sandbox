@@ -1,4 +1,4 @@
-import * as monaco from "monaco-editor";
+import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 
 export default class Editor {
   constructor() {
@@ -11,26 +11,13 @@ export default class Editor {
       minimap: {
         enabled: false
       },
-      model: null
+      model: null,
+      fontSize: 16
     });
   }
 
   newModel(lang) {
-    let data = "// sandbox";
-    if (lang === "any") {
-      lang = "C";
-    }
-
-    if (lang === "PYTHON") {
-      lang = "python";
-    } else if (lang === "JAVA") {
-      lang = "java";
-    } else if (lang === "C++") {
-      lang = "cpp";
-    } else {
-      lang = "c";
-    }
-
+    let data = "";
     const model = monaco.editor.createModel(data, lang);
 
     return model;

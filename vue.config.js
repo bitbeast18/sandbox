@@ -1,4 +1,4 @@
-const MonacoEditorPlugin = require('monaco-editor-webpack-plugin');
+const MonacoEditorPlugin = require("monaco-editor-webpack-plugin");
 
 module.exports = {
   transpileDependencies: ["vuetify"],
@@ -6,11 +6,10 @@ module.exports = {
   configureWebpack: {
     plugins: [
       new MonacoEditorPlugin({
-        languages: ['c', 'cpp', 'java', 'python', 'javascript', 'html', 'css'],
-        features: ['!gotoSymbol']
+        languages: ["c", "cpp", "java", "python", "javascript", "html", "css"],
+        features: ["!gotoSymbol"]
       })
     ]
-
   },
 
   pluginOptions: {

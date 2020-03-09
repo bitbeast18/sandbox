@@ -49,6 +49,7 @@ function createWindow() {
     win.setKiosk(true);
     win.setAlwaysOnTop(true);
     win.setMenuBarVisibility(false);
+    
   });
 
   ipcMain.on("session-ended", () => {

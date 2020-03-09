@@ -10,11 +10,7 @@ import {
 import { autoUpdater } from "electron-updater";
 import path from "path";
 
-const blockedShortcuts = [
-  'Alt+Tab',
-  'Alt+F4',
-  'CmdOrCtrl+T'
-]
+const blockedShortcuts = require('./utils/Shortcuts');
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -56,9 +52,8 @@ function createWindow() {
     win.setAlwaysOnTop(true);
     win.setMenuBarVisibility(false);
 
-    globalShortcut.registerAll(blockedShortcuts, () => {
-      dialog.showErrorBox("Invalid Operation Detected!",
-      "You have performed some invalid operation. Please do not repeat or the test will end automatically!")
+    globalShortcut.registerAll(blockedShortcuts, (err) => {
+      console.log(err);
     })
 
   });

@@ -3,36 +3,15 @@
     <v-content app>
       <v-container fluid class="d-flex fill-height pa-0 ma-0">
         <div class="fill-height setup">
-          <v-card
-            tile
-            :loading="loader"
-            class="fill-height grey darken-4"
-            elevation="24"
-          >
-            <div
-              id="title-name"
-              class="display-4 font-weight-medium grey--text"
-            >
-              Sandbox
-            </div>
+          <v-card tile :loading="loader" class="fill-height grey darken-4" elevation="24">
+            <div id="title-name" class="display-4 font-weight-medium grey--text">Sandbox</div>
           </v-card>
         </div>
 
-        <div
-          class="setup d-flex justify-center align-center fill-height flex-grow-1"
-        >
-          <v-card
-            width="30vw"
-            class="grey white--text darken-4 pa-10"
-            rounded
-            elevation="20"
-          >
+        <div class="setup d-flex justify-center align-center fill-height flex-grow-1">
+          <v-card width="30vw" class="grey white--text darken-4 pa-10" rounded elevation="20">
             <v-card-title class="pt-0 pb-10">
-              <div
-                class="display-1 text-center text--white font-weight-bold flex-grow-1"
-              >
-                Login
-              </div>
+              <div class="display-1 text-center text--white font-weight-bold flex-grow-1">Login</div>
             </v-card-title>
             <v-card-text>
               <v-form>
@@ -66,14 +45,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn
-                rounded
-                width="150px"
-                :loading="loader"
-                large
-                @click="setSession"
-                >start test</v-btn
-              >
+              <v-btn rounded width="150px" :loading="loader" large @click="setSession">start test</v-btn>
             </v-card-actions>
           </v-card>
         </div>
@@ -84,8 +56,17 @@
 
 <script>
 import { mdiAccount, mdiKey, mdiLock, mdiEye, mdiEyeOff } from "@mdi/js";
+import { ipcRenderer } from "electron";
 
 export default {
+  mounted() {
+    ipcRenderer.on("closeWindowAttempt", () => {
+      if (!this.$store.state.session) {
+        ipcRenderer.send("closeWindow");
+      }
+    });
+  },
+
   data() {
     return {
       icons: {

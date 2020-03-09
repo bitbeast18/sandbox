@@ -9,3 +9,16 @@
     </v-content>
   </v-app>
 </template>
+
+<script>
+import { ipcRenderer } from "electron";
+export default {
+  mounted() {
+    ipcRenderer.on("closeWindowAttempt", () => {
+      if (!this.$store.state.session) {
+        ipcRenderer.send("closeWindow");
+      }
+    });
+  }
+};
+</script>

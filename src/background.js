@@ -64,14 +64,14 @@ function createWindow() {
     // globalShortcut.unregisterAll();
   });
 
-  win.on("close", ev => {
-    ev.preventDefault();
-    win.webContents.send("windowCloseAttempt");
-  });
-
-  ipcMain.on("closeWindow", () => {
+  ipcMain.on('closeWindow', ()=>{
     win.destroy();
-  });
+  })
+
+  win.on('close', (ev)=>{
+    ev.preventDefault();
+    win.webContents.send('closeWindowAttempt');
+  })
 
   win.on("closed", () => {
     win = null;

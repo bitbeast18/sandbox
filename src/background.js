@@ -2,7 +2,7 @@
 
 /* global __static */
 
-import { app, protocol, BrowserWindow, ipcMain, globalShortcut } from "electron";
+import { app, protocol, BrowserWindow, ipcMain } from "electron";
 import {
   createProtocol
   /* installVueDevtools */
@@ -10,7 +10,7 @@ import {
 import { autoUpdater } from "electron-updater";
 import path from "path";
 
-const blockedShortcuts = require('./utils/Shortcuts');
+// const blockedShortcuts = require('./utils/Shortcuts');
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -52,32 +52,30 @@ function createWindow() {
     win.setAlwaysOnTop(true);
     win.setMenuBarVisibility(false);
 
-    globalShortcut.registerAll(blockedShortcuts, () => {
-      win.webContents.send('InvalidKey');
-    })
-
+    // globalShortcut.registerAll(blockedShortcuts, () => {
+    //   win.webContents.send('InvalidKey');
+    // })
   });
 
   ipcMain.on("session-ended", () => {
     win.setKiosk(false);
     win.setAlwaysOnTop(false);
     win.setMenuBarVisibility(false);
-    globalShortcut.unregisterAll();
+    // globalShortcut.unregisterAll();
   });
 
-  win.on("close", (ev) => {
+  win.on("close", ev => {
     ev.preventDefault();
-    win.webContents.send('windowCloseAttempt');
+    win.webContents.send("windowCloseAttempt");
   });
 
-  ipcMain.on('closeWindow', () => {
+  ipcMain.on("closeWindow", () => {
     win.destroy();
   });
 
   win.on("closed", () => {
     win = null;
   });
-
 }
 
 // Quit when all windows are closed.

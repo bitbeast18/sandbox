@@ -110,8 +110,8 @@ export default {
   methods: {
     setSession: function() {
       this.$store.dispatch("startSession", {
-        testId: this.testId,
-        userId: this.userId
+        testId: this.testId.trim(),
+        userId: this.userId.trim()
       });
     }
   }

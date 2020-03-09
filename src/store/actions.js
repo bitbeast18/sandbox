@@ -21,6 +21,10 @@ export default {
       .doc(state.testId)
       .get()
       .then(docref => {
+        if (!docref.exists) {
+          throw new Error("Invalid Test ID. Try re-entering.");
+        }
+
         // Change problems to question in database later [inconsistency]
         for (let question of docref.data().problems) {
           state.allQuestions.push(new Question(question));
@@ -37,18 +41,18 @@ export default {
 
         // Sets up file manager.
         state.fileManager.setupFileManager(state.allQuestions, state.testId);
-        
+
         state.submitManager.setupSubmitManager(state.userId, state.testId);
 
         state.loginLoader = false;
         state.session = true;
         ipcRenderer.send("session-started");
         dispatch("changeRoute");
-      })
-      // .catch(err => {
-      //   alert(err.message);
-      //   state.loginLoader = false;
-      // });
+      });
+    // .catch(err => {
+    //   alert(err.message);
+    //   state.loginLoader = false;
+    // });
   },
 
   changeRoute({ state }) {

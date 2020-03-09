@@ -4,7 +4,7 @@
     <v-dialog v-model="dialog" max-width="600">
       <v-card>
         <v-card-title>Error !</v-card-title>
-        <v-card-text class="pb-1">{{message}}</v-card-text>
+        <v-card-text class="pb-1">{{ message }}</v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -41,7 +41,7 @@ export default {
         this.message = "Please click 'End Test' to exit.";
         this.dialog = true;
       } else {
-        ipcRenderer.send('closeWindow');
+        ipcRenderer.send("closeWindow");
       }
     });
 

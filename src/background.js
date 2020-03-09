@@ -7,7 +7,8 @@ import {
   createProtocol
   /* installVueDevtools */
 } from "vue-cli-plugin-electron-builder/lib";
-import { autoUpdater } from "electron-updater";
+
+import {autoUpdater} from 'electron-updater';
 import path from "path";
 
 // const blockedShortcuts = require('./utils/Shortcuts');

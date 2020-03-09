@@ -3,7 +3,7 @@ import router from "@/router/index";
 import Question from "@/utils/Question";
 import NotebookServer from "@/utils/NotebookServer";
 
-const { ipcRenderer, clipboard } = require("electron").remote;
+const { ipcRenderer, clipboard } = require("electron");
 
 export default {
   startSession({ state, commit, dispatch }, payload) {
@@ -45,10 +45,10 @@ export default {
         ipcRenderer.send("session-started");
         dispatch("changeRoute");
       })
-      .catch(err => {
-        alert(err.message);
-        state.loginLoader = false;
-      });
+      // .catch(err => {
+      //   alert(err.message);
+      //   state.loginLoader = false;
+      // });
   },
 
   changeRoute({ state }) {
@@ -194,8 +194,8 @@ export default {
       .update(data)
       .then(function() {
         state.endTestLoader = false;
-        state.session = false;
         router.push("/landing");
+        state.session = false;
         ipcRenderer.send("session-ended");
       });
   }

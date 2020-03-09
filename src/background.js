@@ -2,7 +2,7 @@
 
 /* global __static */
 
-import { app, protocol, BrowserWindow, ipcMain, globalShortcut, dialog, ipcRenderer } from "electron";
+import { app, protocol, BrowserWindow, ipcMain, globalShortcut } from "electron";
 import {
   createProtocol
   /* installVueDevtools */

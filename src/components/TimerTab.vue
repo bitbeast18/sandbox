@@ -11,7 +11,7 @@
   >
     <v-btn @click="prev" rounded>prev</v-btn>
     <div>
-      <p class="display-1 font-weight-bold">01:45:39</p>
+      <p class="display-1 font-weight-bold">UNTIMED</p>
     </div>
     <v-btn @click="next" rounded>next</v-btn>
   </v-container>

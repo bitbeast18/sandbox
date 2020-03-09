@@ -52,6 +52,11 @@ export default {
       this.message = "Click on 'End Test' to exit.";
       this.dialog = true;
     });
+
+    ipcRenderer.on("InvalidKey", () => {
+      this.message = "Keyboard shortcuts are disabled. Please do not use them."
+      this.dialog = true;
+    })
   },
 
   data() {

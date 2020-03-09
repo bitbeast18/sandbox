@@ -2,7 +2,7 @@
 
 /* global __static */
 
-import { app, protocol, BrowserWindow, ipcMain } from "electron";
+import { app, protocol, BrowserWindow, ipcMain, globalShortcut } from "electron";
 import {
   createProtocol
   /* installVueDevtools */
@@ -11,6 +11,14 @@ import { autoUpdater } from "electron-updater";
 import path from "path";
 
 // const blockedShortcuts = require('./utils/Shortcuts');
+
+const blockedShortcuts = [
+  'Alt+Tab',
+  'CmdOrCtrl+Tab',
+  'Alt+F4',
+  'Shift+Tab',
+  'Super+Tab'
+]
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -52,16 +60,16 @@ function createWindow() {
     win.setAlwaysOnTop(true);
     win.setMenuBarVisibility(false);
 
-    // globalShortcut.registerAll(blockedShortcuts, () => {
-    //   win.webContents.send('InvalidKey');
-    // })
+    globalShortcut.registerAll(blockedShortcuts, () => {
+      win.webContents.send('InvalidKey');
+    })
   });
 
   ipcMain.on("session-ended", () => {
     win.setKiosk(false);
     win.setAlwaysOnTop(false);
     win.setMenuBarVisibility(false);
-    // globalShortcut.unregisterAll();
+    globalShortcut.unregisterAll();
   });
 
   ipcMain.on('closeWindow', ()=>{

@@ -2,6 +2,8 @@ export default {
   isDockLeft: false,
   isDarkTheme: false,
 
+  session: false,
+
   // Instances
   editor: null,
   runner: null,

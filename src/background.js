@@ -2,7 +2,7 @@
 
 /* global __static */
 
-import { app, protocol, BrowserWindow, ipcMain, globalShortcut, dialog } from "electron";
+import { app, protocol, BrowserWindow, ipcMain, globalShortcut, dialog, ipcRenderer } from "electron";
 import {
   createProtocol
   /* installVueDevtools */
@@ -52,8 +52,8 @@ function createWindow() {
     win.setAlwaysOnTop(true);
     win.setMenuBarVisibility(false);
 
-    globalShortcut.registerAll(blockedShortcuts, (err) => {
-      console.log(err);
+    globalShortcut.registerAll(blockedShortcuts, () => {
+      win.webContents.send('InvalidKey');
     })
 
   });
@@ -65,9 +65,19 @@ function createWindow() {
     globalShortcut.unregisterAll();
   });
 
+  win.on("close", (ev) => {
+    ev.preventDefault();
+    win.webContents.send('windowCloseAttempt');
+  });
+
+  ipcMain.on('closeWindow', () => {
+    win.destroy();
+  });
+
   win.on("closed", () => {
     win = null;
   });
+
 }
 
 // Quit when all windows are closed.

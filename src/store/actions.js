@@ -3,7 +3,7 @@ import router from "@/router/index";
 import Question from "@/utils/Question";
 import NotebookServer from "@/utils/NotebookServer";
 
-import { ipcRenderer } from "electron";
+const { ipcRenderer, clipboard } = require("electron").remote;
 
 export default {
   startSession({ state, commit, dispatch }, payload) {
@@ -32,10 +32,16 @@ export default {
           NotebookServer.startServer();
         }
 
+        // Clears the clipboard.
+        clipboard.writeText(" ");
+
+        // Sets up file manager.
         state.fileManager.setupFileManager(state.allQuestions, state.testId);
+        
         state.submitManager.setupSubmitManager(state.userId, state.testId);
 
         state.loginLoader = false;
+        state.session = true;
         ipcRenderer.send("session-started");
         dispatch("changeRoute");
       })
@@ -188,6 +194,7 @@ export default {
       .update(data)
       .then(function() {
         state.endTestLoader = false;
+        state.session = false;
         router.push("/landing");
         ipcRenderer.send("session-ended");
       });

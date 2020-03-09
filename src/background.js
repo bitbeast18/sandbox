@@ -2,13 +2,14 @@
 
 /* global __static */
 
-import { app, protocol, BrowserWindow, ipcMain } from "electron";
+import { app, protocol, BrowserWindow, ipcMain, globalShortcut, dialog } from "electron";
 import {
   createProtocol
   /* installVueDevtools */
 } from "vue-cli-plugin-electron-builder/lib";
 import { autoUpdater } from "electron-updater";
 import path from "path";
+import {blockedShortcuts} from "./utils/shortcuts";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -49,13 +50,19 @@ function createWindow() {
     win.setKiosk(true);
     win.setAlwaysOnTop(true);
     win.setMenuBarVisibility(false);
-    
+
+    globalShortcut.registerAll(blockedShortcuts, () => {
+      dialog.showErrorBox("Invalid Operation Detected!",
+      "You have performed some invalid operation. Please do not repeat or the test will end automatically!")
+    })
+
   });
 
   ipcMain.on("session-ended", () => {
     win.setKiosk(false);
     win.setAlwaysOnTop(false);
     win.setMenuBarVisibility(false);
+    globalShortcut.unregisterAll();
   });
 
   win.on("closed", () => {

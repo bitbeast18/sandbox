@@ -48,7 +48,7 @@ export default {
         state.session = true;
         ipcRenderer.send("session-started");
         dispatch("changeRoute");
-      });
+      })
     .catch(err => {
       alert(err.message);
       state.loginLoader = false;

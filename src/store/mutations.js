@@ -1,6 +1,6 @@
 import Editor from "@/utils/Editor";
 import Runner from "@/utils/Runner";
-import FileManager from "@/utils/FileManager";
+import fileManager from "@/utils/FileManager";
 import SubmitManager from "@/utils/SubmitManager";
 
 export default {
@@ -9,7 +9,7 @@ export default {
   initStore(state) {
     state.editor = new Editor();
     state.runner = new Runner();
-    state.fileManager = new FileManager();
+    state.fileManager = fileManager;
     state.submitManager = new SubmitManager();
   },
 

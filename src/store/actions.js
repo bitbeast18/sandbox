@@ -82,7 +82,7 @@ export default {
 
     router
       .push("/session" + nextRoute + "/" + state.curQuestionIdx)
-      .catch(() => {});
+      .catch(() => { });
   },
 
   runCodingTask({ state, dispatch }) {
@@ -172,6 +172,7 @@ export default {
     } else if (type === "MCQ") {
       state.submitManager.submitMCQ(state.curQuestion, state.curQuestionIdx);
     } else if (type === "ML") {
+      document.getElementById('notebook').send('saveNotebook');
       state.submitManager.submitML(state.curQuestion, state.curQuestionIdx);
     } else {
       // type === "Web Dev"
@@ -196,10 +197,11 @@ export default {
     db.collection("submissionBunch")
       .doc(state.testId)
       .update(data)
-      .then(function() {
+      .then(function () {
         state.endTestLoader = false;
         router.push("/landing");
         state.session = false;
+        NotebookServer.stopServer();
         ipcRenderer.send("session-ended");
       });
   }

@@ -8,10 +8,19 @@ import {
   /* installVueDevtools */
 } from "vue-cli-plugin-electron-builder/lib";
 
+import log from 'electron-log';
+
+log.transports.remote.level = 'silly';
+
 import {autoUpdater} from 'electron-updater';
 import path from "path";
 
 // const blockedShortcuts = require('./utils/Shortcuts');
+
+// Prevents scaling inheritence.
+
+app.commandLine.appendSwitch('high-dpi-support', 1)
+app.commandLine.appendSwitch('force-device-scale-factor', 1)
 
 const blockedShortcuts = [
   'Alt+Tab',
@@ -35,9 +44,11 @@ protocol.registerSchemesAsPrivileged([
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
+    
     webPreferences: {
       nodeIntegration: true,
-      webSecurity: false
+      webSecurity: false,
+      webviewTag: true
     },
     icon: path.join(__static, "icon.png")
   });
@@ -53,7 +64,10 @@ function createWindow() {
     createProtocol("app");
     // Load the index.html when not in development
     win.loadURL("app://./index.html");
-    autoUpdater.checkForUpdatesAndNotify();
+    autoUpdater.checkForUpdatesAndNotify()
+                .catch((err)=>{
+                  log.error(err);
+                });
   }
 
   ipcMain.on("session-started", () => {

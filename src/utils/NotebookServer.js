@@ -1,25 +1,43 @@
 import { exec } from "child_process";
+import path from "path";
 import os from "os";
+import log from 'electron-log'; 
+// import configManager from "./ConfigManager";
 
 class NotebookServer {
   constructor() {
     this.childProcess = null;
-    this.command = `jupyter notebook --no-mathjax --no-browser --port=10301 --notebook-dir="${os.tmpdir()}"`;
+
+    this.condaPath = null;
+
+    if(process.platform === 'win32'){
+      this.condaPath = path.join(os.homedir(), 'Anaconda3', 'condabin', 'conda');
+    } else {
+      this.condaPath = path.join(os.homedir(), 'anaconda3', 'condabin', 'conda');
+    }
+
+    this.command = `jupyter notebook --no-mathjax --no-browser --port=4321 --notebook-dir="${os.tmpdir()}" --NotebookApp.token=''`;
   }
 
   startServer() {
-    this.childProcess = exec(
-      this.command,
-      {
-        env: { JUPYTER_CONFIG_DIR: "src/utils/NotebookConfig" },
-        windowsHide: false
-      },
-      () => {}
-    );
-  }
+    this.childProcess = exec(this.command);
 
+    this.childProcess.stderr.on('data', (data) => {
+      log.error(data.toString());
+    })
+
+    this.childProcess.stdout.on('data', (data) => {
+      log.error(data.toString());
+    })
+
+  }
+  
   stopServer() {
     if (this.childProcess) {
+      this.childProcess.kill('SIGINT');
+    }
+
+    if(this.childProcess) {
       this.childProcess.kill();
     }
   }

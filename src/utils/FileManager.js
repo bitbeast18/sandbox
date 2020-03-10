@@ -3,7 +3,7 @@ import path from "path";
 import fs from "fs";
 import { execSync } from "child_process";
 
-export default class FileManager {
+class FileManager {
   constructor() {
     this.base_addr = null;
 
@@ -43,7 +43,7 @@ export default class FileManager {
      */
 
     if (fs.existsSync(this.base_addr)) {
-      this.cleanup();
+      this.cleanup(this.base_addr);
     }
 
     // Destructive command ends here.
@@ -150,13 +150,15 @@ export default class FileManager {
     }
   }
 
-  cleanup() {
-    if (fs.existsSync(this.base_addr)) {
+  cleanup(addr) {
+    if (fs.existsSync(addr)) {
       if (process.platform === "win32") {
-        execSync("rd /s /q " + this.base_addr);
+        execSync("rd /s /q " + addr);
       } else {
-        execSync("rm -rf " + this.base_addr);
+        execSync("rm -rf " + addr);
       }
     }
   }
 }
+
+export default new FileManager();

@@ -10,7 +10,7 @@
       @click="render"
     >render page</v-btn>
 
-    <v-dialog persistent v-model="webDialog" fullscreen>
+    <v-dialog persistent v-model="webDialog" style="overflow:hidden!important" fullscreen>
       <WebResult></WebResult>
     </v-dialog>
 

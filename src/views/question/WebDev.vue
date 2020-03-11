@@ -23,3 +23,10 @@ export default {
   }
 };
 </script>
+
+<style>
+  pre {
+    white-space: pre-line;
+    word-break: keep-all;
+  }
+</style>

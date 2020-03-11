@@ -28,6 +28,9 @@ export default {
         // Change problems to question in database later [inconsistency]
         for (let question of docref.data().problems) {
           state.allQuestions.push(new Question(question));
+          if(question.type === 'Machine Learning'){
+            state.hasMl = true;
+          }
         }
 
         commit("setCurQuestion", 0);

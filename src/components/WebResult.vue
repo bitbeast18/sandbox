@@ -6,7 +6,12 @@
       <v-btn small class="mr-5 my-2" @click="toggleDialog">close</v-btn>
     </v-card-title>
     <v-divider></v-divider>
-    <iframe id="webpageshow" height="100%" width="100%" frameborder="2"></iframe>
+    <iframe
+      id="webpageshow"
+      height="100%"
+      width="100%"
+      frameborder="2"
+    ></iframe>
   </v-card>
 </template>
 
@@ -14,7 +19,6 @@
 export default {
   mounted() {
     this.$nextTick(() => {
-
       let doc = document.getElementById("webpageshow").contentDocument;
 
       let style = doc.createElement("style");

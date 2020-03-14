@@ -1,5 +1,6 @@
 import fs from "fs";
-import { spawnSync, execSync } from "child_process";
+import { spawnSync } from "child_process";
+import fm from "@/utils/FileManager";
 
 export default class Runner {
   constructor() {
@@ -14,6 +15,10 @@ export default class Runner {
       windowsHide: true
     });
 
+    if (compiler_out.error) {
+      throw new Error("'gcc' is not installed on your machine!");
+    }
+
     return compiler_out;
   }
 
@@ -23,12 +28,16 @@ export default class Runner {
       windowsHide: true
     });
 
+    if (compiler_out.error) {
+      throw new Error("'g++' is not installed on your machine!");
+    }
+
     return compiler_out;
   }
 
   compileJAVA(addr, execPath) {
     if (fs.existsSync(execPath)) {
-      execSync("rm -rf " + execPath);
+      fm.cleanup(execPath);
     }
 
     fs.mkdirSync(execPath);
@@ -37,6 +46,10 @@ export default class Runner {
       encoding: "utf-8",
       windowsHide: true
     });
+
+    if (compiler_out.error) {
+      throw new Error("'java' is not installed on your machine!");
+    }
 
     return compiler_out;
   }
@@ -94,6 +107,10 @@ export default class Runner {
         encoding: "utf-8",
         windowsHide: true
       });
+
+      if (runner_out.error) {
+        throw new Error("'python3 is not installed on your machine!'");
+      }
 
       this.gradeOutput(curQuestion, i, runner_out);
     }

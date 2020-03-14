@@ -2,33 +2,39 @@
 
 /* global __static */
 
-import { app, protocol, BrowserWindow, ipcMain, globalShortcut } from "electron";
+import {
+  app,
+  protocol,
+  BrowserWindow,
+  ipcMain,
+  globalShortcut
+} from "electron";
 import {
   createProtocol
   /* installVueDevtools */
 } from "vue-cli-plugin-electron-builder/lib";
 
-import log from 'electron-log';
+import log from "electron-log";
 
-log.transports.remote.level = 'silly';
+log.transports.remote.level = "silly";
 
-import {autoUpdater} from 'electron-updater';
+import { autoUpdater } from "electron-updater";
 import path from "path";
 
 // const blockedShortcuts = require('./utils/Shortcuts');
 
 // Prevents scaling inheritence.
 
-app.commandLine.appendSwitch('high-dpi-support', 1)
-app.commandLine.appendSwitch('force-device-scale-factor', 1)
+app.commandLine.appendSwitch("high-dpi-support", 1);
+app.commandLine.appendSwitch("force-device-scale-factor", 1);
 
 const blockedShortcuts = [
-  'Alt+Tab',
-  'CmdOrCtrl+Tab',
-  'Alt+F4',
-  'Shift+Tab',
-  'Super+Tab'
-]
+  "Alt+Tab",
+  "CmdOrCtrl+Tab",
+  "Alt+F4",
+  "Shift+Tab",
+  "Super+Tab"
+];
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -44,7 +50,6 @@ protocol.registerSchemesAsPrivileged([
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
-    
     webPreferences: {
       nodeIntegration: true,
       webSecurity: false,
@@ -64,10 +69,9 @@ function createWindow() {
     createProtocol("app");
     // Load the index.html when not in development
     win.loadURL("app://./index.html");
-    autoUpdater.checkForUpdatesAndNotify()
-                .catch((err)=>{
-                  log.error(err);
-                });
+    autoUpdater.checkForUpdatesAndNotify().catch(err => {
+      log.error(err);
+    });
   }
 
   ipcMain.on("session-started", () => {
@@ -76,8 +80,8 @@ function createWindow() {
     win.setMenuBarVisibility(false);
 
     globalShortcut.registerAll(blockedShortcuts, () => {
-      win.webContents.send('InvalidKey');
-    })
+      win.webContents.send("InvalidKey");
+    });
   });
 
   ipcMain.on("session-ended", () => {
@@ -87,14 +91,14 @@ function createWindow() {
     globalShortcut.unregisterAll();
   });
 
-  ipcMain.on('closeWindow', ()=>{
+  ipcMain.on("closeWindow", () => {
     win.destroy();
-  })
+  });
 
-  win.on('close', (ev)=>{
+  win.on("close", ev => {
     ev.preventDefault();
-    win.webContents.send('closeWindowAttempt');
-  })
+    win.webContents.send("closeWindowAttempt");
+  });
 
   win.on("closed", () => {
     win = null;

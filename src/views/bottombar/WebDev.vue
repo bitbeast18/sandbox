@@ -8,9 +8,15 @@
       width="150px"
       rounded
       @click="render"
-    >render page</v-btn>
+      >render page</v-btn
+    >
 
-    <v-dialog persistent v-model="webDialog" style="overflow:hidden!important" fullscreen>
+    <v-dialog
+      persistent
+      v-model="webDialog"
+      style="overflow:hidden!important"
+      fullscreen
+    >
       <WebResult></WebResult>
     </v-dialog>
 
@@ -21,7 +27,8 @@
       :loading="submitLoader"
       rounded
       @click="submit"
-    >submit code</v-btn>
+      >submit code</v-btn
+    >
   </div>
 </template>
 
@@ -52,7 +59,6 @@ export default {
       this.$store.state.fileManager.saveFile(this.$store.state.curQuestion);
 
       if (document.getElementById("webpageshow")) {
-
         let doc = document.getElementById("webpageshow").contentDocument;
 
         let style = doc.createElement("style");

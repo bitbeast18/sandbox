@@ -28,7 +28,7 @@ export default {
         // Change problems to question in database later [inconsistency]
         for (let question of docref.data().problems) {
           state.allQuestions.push(new Question(question));
-          if(question.type === 'Machine Learning'){
+          if (question.type === "Machine Learning") {
             state.hasMl = true;
           }
         }
@@ -36,7 +36,11 @@ export default {
         commit("setCurQuestion", 0);
 
         if (state.hasMl) {
-          NotebookServer.startServer();
+          try {
+            NotebookServer.startServer();
+          } catch (err) {
+            throw new Error("'jupyter' is not installed on your machine!");
+          }
         }
 
         // Clears the clipboard.
@@ -85,68 +89,77 @@ export default {
 
     router
       .push("/session" + nextRoute + "/" + state.curQuestionIdx)
-      .catch(() => { });
+      .catch(() => {});
   },
 
-  runCodingTask({ state, dispatch }) {
+  runCodingTask({ state, commit, dispatch }) {
     state.runCodeLoader = true;
 
     state.fileManager.saveFile(state.curQuestion);
 
     dispatch("resetTestCases");
 
-    if (state.curQuestion.curFile.name === "PYTHON") {
-      // Python code handling.
+    try {
+      // Calls to run PYTHON.
+      if (state.curQuestion.curFile.name === "PYTHON") {
+        state.runner.runPY(state.curQuestion);
 
-      state.runner.runPY(state.curQuestion);
-    } else if (state.curQuestion.curFile.name === "C") {
-      // C code handling.
+        // Calls to run C.
+      } else if (state.curQuestion.curFile.name === "C") {
+        let compile_out = state.runner.compileC(
+          state.curQuestion.curFile.addr,
+          state.fileManager.compiled_data.c
+        );
 
-      let compile_out = state.runner.compileC(
-        state.curQuestion.curFile.addr,
-        state.fileManager.compiled_data.c
-      );
+        if (compile_out.status === 0) {
+          state.runner.runC(
+            state.curQuestion,
+            state.fileManager.compiled_data.c
+          );
+        } else {
+          state.runTestCaseDialogText = compile_out.stderr.trim();
+        }
 
-      if (compile_out.status === 0) {
-        state.runner.runC(state.curQuestion, state.fileManager.compiled_data.c);
-      } else {
-        state.runTestCaseDialogText = compile_out.stderr.trim();
-      }
-    } else if (state.curQuestion.curFile.name === "C++") {
-      // C++ code handling.
-
-      let compile_out = state.runner.compileCPP(
-        state.curQuestion.curFile.addr,
-        state.fileManager.compiled_data.cpp
-      );
-
-      if (compile_out.status === 0) {
-        state.runner.runCPP(
-          state.curQuestion,
+        // Calls to run C++.
+      } else if (state.curQuestion.curFile.name === "C++") {
+        let compile_out = state.runner.compileCPP(
+          state.curQuestion.curFile.addr,
           state.fileManager.compiled_data.cpp
         );
+
+        if (compile_out.status === 0) {
+          state.runner.runCPP(
+            state.curQuestion,
+            state.fileManager.compiled_data.cpp
+          );
+        } else {
+          state.runTestCaseDialogText = compile_out.stderr.trim();
+        }
+
+        // Calls to run JAVA.
       } else {
-        state.runTestCaseDialogText = compile_out.stderr.trim();
-      }
-    } else {
-      // Java code handling.
-
-      let compile_out = state.runner.compileJAVA(
-        state.curQuestion.curFile.addr,
-        state.fileManager.compiled_data.java
-      );
-
-      if (compile_out.status === 0) {
-        state.runner.runJAVA(
-          state.curQuestion,
+        let compile_out = state.runner.compileJAVA(
+          state.curQuestion.curFile.addr,
           state.fileManager.compiled_data.java
         );
-      } else {
-        state.runTestCaseDialogText = compile_out.stderr.trim();
-      }
-    }
 
-    state.runCodeLoader = false;
+        if (compile_out.status === 0) {
+          state.runner.runJAVA(
+            state.curQuestion,
+            state.fileManager.compiled_data.java
+          );
+        } else {
+          state.runTestCaseDialogText = compile_out.stderr.trim();
+        }
+      }
+
+      state.runCodeLoader = false;
+      state.runDialogState = true;
+
+      // If any language fails to run.
+    } catch (error) {
+      commit("displayErrorMessage", error.message);
+    }
   },
 
   resetTestCases({ state }) {
@@ -175,7 +188,7 @@ export default {
     } else if (type === "MCQ") {
       state.submitManager.submitMCQ(state.curQuestion, state.curQuestionIdx);
     } else if (type === "ML") {
-      document.getElementById('notebook').send('saveNotebook');
+      document.getElementById("notebook").send("saveNotebook");
       state.submitManager.submitML(state.curQuestion, state.curQuestionIdx);
     } else {
       // type === "Web Dev"
@@ -200,7 +213,7 @@ export default {
     db.collection("submissionBunch")
       .doc(state.testId)
       .update(data)
-      .then(function () {
+      .then(function() {
         state.endTestLoader = false;
         router.push("/landing");
         state.session = false;

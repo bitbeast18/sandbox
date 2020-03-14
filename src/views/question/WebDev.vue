@@ -6,7 +6,6 @@
 
       <v-subheader class="pa-1"> Statement </v-subheader>
       <pre> {{ statement }} </pre>
-
     </v-card-text>
   </v-card>
 </template>
@@ -19,14 +18,14 @@ export default {
     },
     idx() {
       return this.$store.state.curQuestionIdx + 1;
-    },
+    }
   }
 };
 </script>
 
 <style>
-  pre {
-    white-space: pre-line;
-    word-break: keep-all;
-  }
+pre {
+  white-space: pre-line;
+  word-break: keep-all;
+}
 </style>

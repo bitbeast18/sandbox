@@ -8,7 +8,7 @@ class FileManager {
     this.base_addr = null;
 
     if (fs.existsSync(path.resolve(os.tmpdir(), "compiled_data"))) {
-      execSync("rm -rf " + path.resolve(os.tmpdir(), "compiled_data"));
+      this.cleanup(path.resolve(os.tmpdir(), "compiled_data"));
     }
 
     fs.mkdirSync(path.resolve(os.tmpdir(), "compiled_data"));

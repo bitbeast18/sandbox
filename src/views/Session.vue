@@ -1,6 +1,11 @@
 <template>
   <v-app app>
-    <v-navigation-drawer :right="!isDockLeft" style="max-height:100vh !important" width="40%" app>
+    <v-navigation-drawer
+      :right="!isDockLeft"
+      style="max-height:100vh !important"
+      width="40%"
+      app
+    >
       <NavContent></NavContent>
     </v-navigation-drawer>
 
@@ -12,14 +17,16 @@
 
     <BottomBar></BottomBar>
 
-    <v-dialog v-model="dialog" max-width="600">
+    <v-dialog v-model="dialogState" max-width="600">
       <v-card>
         <v-card-title>Error !</v-card-title>
         <v-card-text class="pb-1">{{ message }}</v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn small class="mr-2 mb-2" @click="dialog = !dialog">close</v-btn>
+          <v-btn small class="mr-2 mb-2" @click="toggleErrorDialog"
+            >close</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -41,29 +48,24 @@ export default {
     win.on("blur", ev => {
       if (this.$store.state.session) {
         ev.preventDefault();
-        this.message =
-          "Please do not switch tabs! Test will end automatically.";
-        this.dialog = true;
+        this.$store.commit(
+          "displayErrorMessage",
+          "Please do not switch tabs! Test will end automatically."
+        );
         win.focus();
       }
     });
 
     ipcRenderer.on("closeWindowAttempt", () => {
-      this.message = "Click on 'End Test' to exit.";
-      this.dialog = true;
+      this.$store.commit("displayErrorMessage", "Click on 'End Test' to exit.");
     });
 
     ipcRenderer.on("InvalidKey", () => {
-      this.message = "Keyboard shortcuts are disabled. Please do not use them."
-      this.dialog = true;
-    })
-  },
-
-  data() {
-    return {
-      dialog: false,
-      message: ""
-    };
+      this.$store.commit(
+        "displayErrorMessage",
+        "Keyboard shortcuts are disabled. Please do not use them."
+      );
+    });
   },
 
   components: {
@@ -78,6 +80,23 @@ export default {
     },
     getKey() {
       return this.$store.state.curQuestionIdx;
+    },
+    message() {
+      return this.$store.state.errorMessage;
+    },
+    dialogState: {
+      get() {
+        return this.$store.state.errorDialogState;
+      },
+      set() {
+        this.$store.commit("toggleErrorDialogState");
+      }
+    }
+  },
+
+  methods: {
+    toggleErrorDialog() {
+      this.$store.commit("toggleErrorDialogState");
     }
   }
 };

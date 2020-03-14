@@ -1,19 +1,15 @@
 <template>
-  <webview id='notebook' :src="notebookPath" :preload="preloadPath">
-  </webview>
+  <webview id="notebook" :src="notebookPath" :preload="preloadPath"> </webview>
 </template>
 
 <script>
-
-import configManager from '@/utils/ConfigManager';
+import configManager from "@/utils/ConfigManager";
 
 export default {
+  mounted() {
+    let nb = document.getElementById("notebook");
 
-  mounted(){
-    let nb = document.getElementById('notebook');
-
-    nb.addEventListener('dom-ready', ()=>{
-
+    nb.addEventListener("dom-ready", () => {
       nb.insertCSS(`
         .container {
           width: 100%!important;
@@ -22,19 +18,17 @@ export default {
         button[title="open the command palette"] {
           display: none;
         }
-      `)
+      `);
 
-      nb.send('removeElement', 'header-container');
-      nb.send('removeElement', 'menubar');
-      nb.send('removeButton', 'button[title="open the command palette"]');
-
+      nb.send("removeElement", "header-container");
+      nb.send("removeElement", "menubar");
+      nb.send("removeButton", 'button[title="open the command palette"]');
     });
   },
 
-  beforeRouteLeave(to, from, next){
-    
+  beforeRouteLeave(to, from, next) {
     // save the notebook before leaving.
-    this.$el.send('saveNotebook');
+    this.$el.send("saveNotebook");
     next();
   },
 
@@ -44,7 +38,7 @@ export default {
         "http://localhost:4321/tree/" + this.$store.state.curQuestion.addr.rel
       );
     },
-    preloadPath(){
+    preloadPath() {
       return configManager.getNotebookPreload();
     }
   }
@@ -52,7 +46,7 @@ export default {
 </script>
 
 <style>
-  #notebook {
-    height: 100%;
-  }
+#notebook {
+  height: 100%;
+}
 </style>

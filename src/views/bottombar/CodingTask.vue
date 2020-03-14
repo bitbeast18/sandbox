@@ -1,23 +1,16 @@
 <template>
   <div>
-    <v-dialog persistent v-model="runDialog" width="1000">
-      <template v-slot:activator="{ on }">
-        <v-btn
-          class="ml-4"
-          outlined
-          color="success"
-          large
-          width="150px"
-          :loading="runCodeLoader"
-          rounded
-          v-on="on"
-          @click="run"
-          >run code</v-btn
-        >
-      </template>
-
-      <RunResult></RunResult>
-    </v-dialog>
+    <v-btn
+      class="ml-4"
+      outlined
+      color="success"
+      large
+      width="150px"
+      :loading="runCodeLoader"
+      rounded
+      @click="run"
+      >run code</v-btn
+    >
 
     <v-btn
       class="ml-4 success"
@@ -28,6 +21,10 @@
       @click="submit"
       >submit code</v-btn
     >
+
+    <v-dialog persistent v-model="runDialog" width="1000">
+      <RunResult></RunResult>
+    </v-dialog>
   </div>
 </template>
 

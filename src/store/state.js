@@ -4,6 +4,8 @@ export default {
 
   session: false,
 
+  errorMessage: "",
+
   // Instances
   editor: null,
   runner: null,
@@ -25,6 +27,7 @@ export default {
   // Dialog
   runDialogState: false,
   webDialogState: false,
+  errorDialogState: false,
 
   // Dialog Text
   runTestCaseDialogText: "",

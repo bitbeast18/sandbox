@@ -57,5 +57,27 @@ export default {
 
   updateWritingTask(state, val) {
     state.curQuestion.answer = val;
+  },
+
+  displayErrorMessage(state, msg) {
+    state.errorMessage = msg;
+    state.errorDialogState = true;
+
+    // Loaders
+    state.loginLoader = false;
+    state.nextLoader = false;
+    state.prevLoader = false;
+    state.submitLoader = false;
+    state.endTestLoader = false;
+
+    // Coding Task
+    state.runCodeLoader = false;
+
+    // Web Dev
+    state.renderCodeLoader = false;
+  },
+
+  toggleErrorDialogState(state) {
+    state.errorDialogState = !state.errorDialogState;
   }
 };
